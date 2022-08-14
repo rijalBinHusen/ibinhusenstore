@@ -1,10 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <Navbar />
-    <LandingPage />
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+    <div style="max-width:1366px; margin:0 auto;">
+      <Navbar />
+      <LandingPage />
+      <q-page-container>
+        <router-view />
+      </q-page-container>
+    </div>
   </q-layout>
 </template>
 
@@ -22,8 +24,3 @@ export default defineComponent({
   components: { Navbar, LandingPage }
 });
 </script>
-<style scoped>
-  .title-color {
-    color: 445D9E;
-  }
-</style>

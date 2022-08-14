@@ -1,8 +1,7 @@
 <template>
-    <q-header elevated>
-      <q-toolbar class='bg-white rounded-borders'>
-
-        <q-toolbar-title class='text-primary text-h5'> 
+    <q-header elevated style="max-width:1366px; margin:0 auto;">
+      <q-toolbar class='rounded-borders'>
+        <q-toolbar-title class='text-h5'> 
           <strong>
             Ibinhusen store
           </strong>
