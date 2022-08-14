@@ -1,13 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-      </q-toolbar>
-    </q-header>
-
+    <Navbar />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -16,6 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Navbar from '../components/Navbar.vue'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -23,5 +17,11 @@ export default defineComponent({
   setup() {
     return {};
   },
+  components: { Navbar }
 });
 </script>
+<style scoped>
+  .title-color {
+    color: 445D9E;
+  }
+</style>
