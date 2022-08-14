@@ -1,30 +1,28 @@
 <template>
-    <div class="q-container" style="margin-top:20px">
-        <div v-for="cat in categories" :key="cat">
-            <span class="text-h5 text-weight-medium">
+    <div class="row justify-center" style="margin:20px 0 0 auto; max-width:1366px;">
+        <div class=" col-10 " v-for="cat in categories" :key="cat">
+            <div class="text-h5 text-weight-medium" style="margin:0 0 10px 0;">
                 {{ cat?.name }}
-            </span>
+            </div>
+            <div class="row justify-between">
+                <ProductCard v-for="product in cat.products" :key="product.id" :product="product" />
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import Categories from '@/types/Categories'
+import Categories from '../types/Categories'
+import ProductCard from './ProductCard.vue'
 
 export default defineComponent({
     props: {
         categories: {
-            type: Array as PropType<Categories>,
+            type: Object as PropType<Categories[]>,
             required: true,
         }
     },
-    // setup(props) {
-    //     const categoriesName = computed(() => {
-    //         return props?.categories.map((val) => val?.name)
-    //     })
-        
-    //     return { categoriesName }
-    // },
+    components: { ProductCard }
 })
 </script>

@@ -1,19 +1,25 @@
 <template>
-
-    <q-card  style="max-width:204px; magin-left:20px; margin-top:20px;" class="my-card">
-      <img style="height:126px;" src="../assets/cookies3.jpg">
-
+  <div class="q-pa-md items-start col-3">
+    <q-card class="my-card">
+      <q-img src="../assets/cookies6.jpg" :ratio="16/9"/>
        <q-card-section>
-        <div class="text-weight-medium">Butter cookies @250gr</div>
-        <div class="text-subtitle2">Rp36.000</div>
+        <div class="text-weight-medium">{{ product.name }}</div>
+        <div class="text-subtitle2">{{ product.price }}</div>
       </q-card-section>
     </q-card>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import Product from "../types/Product"
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-    // setup() {},
+    props: {
+      product: {
+        required: true,
+        type: Object as PropType<Product>
+      }
+    }
 })
 </script>
