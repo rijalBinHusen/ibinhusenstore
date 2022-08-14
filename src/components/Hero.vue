@@ -1,7 +1,7 @@
 <template>
-  <div class="q-pa-md q-container" style="margin-top:96px;">
-    <div class="row justify-center">
-      <div class="col-md-5">
+  <div class="q-pa-md bg-grey-2">
+    <div class="row justify-center" style="margin-top:96px;">
+      <div class="col-md-5 ">
         <div class="column" style="height:450px;">
             <span class="col-4 text-h3 text-weight-bold ">
                 Mudah belanjanya,<br> Mudah bayarnya

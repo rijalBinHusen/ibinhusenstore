@@ -1,19 +1,15 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <div style="max-width:1366px; margin:0 auto;">
-      <Navbar />
-      <LandingPage />
+  <div style="max-width:1366px; margin:0 auto;">
+    <q-layout view="lHh Lpr lFf">
       <q-page-container>
         <router-view />
       </q-page-container>
-    </div>
-  </q-layout>
+    </q-layout>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Navbar from '../components/Navbar.vue'
-import LandingPage from '../components/LandingPage.vue'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -21,6 +17,5 @@ export default defineComponent({
   setup() {
     return {};
   },
-  components: { Navbar, LandingPage }
 });
 </script>

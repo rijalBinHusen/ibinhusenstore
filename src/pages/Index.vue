@@ -1,13 +1,23 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    
-  </q-page>
+    <div class="q-container">
+      <Navbar />
+      <Hero />
+      <ProductCard />
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Navbar from '../components/Navbar.vue'
+import Hero from '../components/Hero.vue'
+import ProductCard from '../components/ProductCard.vue'
 
 export default defineComponent({
-  name: 'PageIndex',
+  name: 'MainLayout',
+
+  setup() {
+    return {};
+  },
+  components: { Navbar, Hero, ProductCard }
 });
 </script>
