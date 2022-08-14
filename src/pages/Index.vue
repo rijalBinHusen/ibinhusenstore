@@ -2,22 +2,25 @@
     <div class="q-container">
       <Navbar />
       <Hero />
-      <ProductCard />
+      <ProductCategories :categories="categories" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import Navbar from '../components/Navbar.vue'
 import Hero from '../components/Hero.vue'
-import ProductCard from '../components/ProductCard.vue'
+import ProductCategories from '../components/ProductCategories.vue'
+import landingPage from '../assets/landingPage.json'
 
 export default defineComponent({
   name: 'MainLayout',
 
   setup() {
-    return {};
+    let categories = computed(() => landingPage?.categories)
+    
+    return { categories };
   },
-  components: { Navbar, Hero, ProductCard }
+  components: { Navbar, Hero, ProductCategories}
 });
 </script>

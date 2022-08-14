@@ -3,25 +3,25 @@
     {
       "_id": "asd1293uasdads1",
       "name": "Cookies letter @250gr",
-      "harga": "25000",
+      "harga": 25000,
       "img": "../assets/cookies1.jpg"
     },
     {
       "_id": "asd1293uasdads1",
       "name": "Nastar nanas @250gr",
-      "harga": "25000",
+      "harga": 25000,
       "img": "../assets/cookies2.jpg"
     },
     {
       "_id": "asd1293uasdads1",
       "name": "Castangel keju @250gr",
-      "harga": "25000",
+      "harga": 25000,
       "img": "../assets/cookies3.jpg"
     },
     {
       "_id": "asd1293uasdads1",
       "name": "Pastel @250gr",
-      "harga": "25000",
+      "harga": 25000,
       "img": "../assets/cookies4.jpg"
     }
   ],
@@ -29,29 +29,29 @@
     {
       "_id": "asd1293uasdads1",
       "name": "Cookies",
-      "items": [
+      "products": [
         {
           "_id": "asd1293uasdads1",
           "name": "Cookies kacang @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies5.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Cookies letter @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies6.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Butter cookies @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies7.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Banana cookies @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies8.jpg"
         }
       ]
@@ -59,29 +59,29 @@
     {
       "_id": "asd1293uasdads1",
       "name": "Snack",
-      "items": [
+      "products": [
         {
           "_id": "asd1293uasdads1",
           "name": "Pastel ayam @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies3.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Mawar cookies @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies5.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Ulat bulu @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies1.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Monde @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies5.jpg"
         }
       ]
@@ -89,29 +89,29 @@
     {
       "_id": "asd1293uasdads1",
       "name": "Tabungan hari",
-      "items": [
+      "products": [
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel sabun",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies2.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel sembako",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies6.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel parfume @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies4.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel snack @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies8.jpg"
         }
       ]
@@ -119,29 +119,29 @@
     {
       "_id": "asd1293uasdads1",
       "name": "Semua produk",
-      "items": [
+      "products": [
         {
           "_id": "asd1293uasdads1",
           "name": "Cookies kacang @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies8.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel letter @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies4.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Butter parcel @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies2.jpg"
         },
         {
           "_id": "asd1293uasdads1",
           "name": "Parcel sabun @250gr",
-          "harga": "25000",
+          "harga": 25000,
           "img": "../assets/cookies3.jpg"
         }
       ]
