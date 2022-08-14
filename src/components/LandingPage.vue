@@ -15,23 +15,28 @@
                 <q-btn color="primary" label="Mulai pencarian" />
             </span>
             <span class="col-1 row">
-                <div class="col-3">
+                <div class="col">
                     <q-icon class="text-h3 text-grey-8" :name="fasGift" />
                     <p class="text-weight-bold">Puluhan produk</p>
                 </div>
-                <div class="col-3">
+                <div class="col">
                     <q-icon class="text-h3 text-grey-8" :name="fasHandsHelping" />
                     <p class="text-weight-bold">Transaksi mudah</p>
                 </div>
-                <div class="col-3">
+                <div class="col">
                     <q-icon class="text-h3 text-grey-8" :name="fasBusinessTime" />
                     <p class="text-weight-bold">Hemat waktu</p>
                 </div>
             </span>
         </div>
       </div>
-      <div class="col-md-5">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum voluptatem doloremque fugit sequi beatae dolore nulla, suscipit vitae ullam earum? Rerum ratione sequi incidunt provident laborum iusto odio iste rem!
+      <div class=" column col-md-5 items-end" >
+          <q-img
+            src="../assets/undraw_empty_cart_co35.svg"
+            spinner-color="white"
+            style="max-width: 430px"
+            />
+          <!-- <img src="../assets/undraw_empty_cart_co35.svg" alt="Empty cart"> -->
       </div>
     </div>
   </div>
