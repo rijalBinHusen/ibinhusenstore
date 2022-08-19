@@ -1,7 +1,4 @@
 <template>
-    <!-- <div v-for="(star, index) in stars" :key="star">
-        {{ '| ' + rating }}
-    </div> -->
     <q-icon 
         v-for="(star, index) in stars"
         :key="star"

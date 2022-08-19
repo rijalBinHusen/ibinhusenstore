@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
-    <div class="row justify-evenly" style="margin-top:20px; height:400px;">
-      <div class="column col-md-5" >
+    <div class="row justify-center" style="margin-top:20px; height:400px;">
+      <div class="column col-md-4" >
           <q-img
             src="../assets/cookies8.jpg"
             spinner-color="white"
@@ -9,17 +9,26 @@
             :ratio="4/3"
             />
       </div>
-      <div class="col-md-5 items-end">
-        <div class="column">
-            <div class="text-h5 text-weight-bold ">
+      <div class="col-md-5 items-end offset-md-1" >
+        <div class="column" style="height:350px">
+            <span class="col-1 text-h5 text-weight-bold ">
                 {{ testimonial?.product }}
+            </span>
+            
+            <span class="col-2 text-h4 text-weight-regular">
+                <Rating :rating="testimonial.rating" />
+            </span>
+            
+            <div class="col-1 text-subtitle1">
+                {{ testimonial.user }}
             </div>
             <br/>
-            <div class="row text-h4 text-weight-regular">
-                <Rating :rating="testimonial.rating" />
+            <div class="col-3 text-h6">
+                {{ testimonial.content }}
             </div>
+            <br/>
             <div class="col-2">
-                <q-btn color="primary" label="Mulai pencarian" />
+                <q-btn color="primary" label="Details produk" />
             </div>
         </div>
       </div>

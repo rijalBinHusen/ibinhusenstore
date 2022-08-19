@@ -4,8 +4,8 @@
       <!-- <img :src="imgUrl(product?.img)" /> -->
       <q-img src="../assets/cookies7.jpg" :ratio="16/9"/>
        <q-card-section>
-        <div class="text-weight-medium">{{ product.name }}</div>
-        <div class="text-subtitle2">{{ product.price }}</div>
+        <div class="text-weight-medium text-caption">{{ product.name }}</div>
+        <div class="text-subtitle2 text-weight-regular">RP{{ product.price }}</div>
       </q-card-section>
     </q-card>
   </div>

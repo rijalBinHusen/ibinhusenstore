@@ -150,9 +150,9 @@
   "testimonial": {
     "id": "asd1293uasdads1",
     "img": "cookies3",
-    "name": "User Kita",
+    "user": "User Kita",
     "rating": 4,
-    "content": "What a great trip with my family and I should try again next time soon ...",
+    "content": "What a great cookies with my family and I should try again next time soon ...",
     "product": "Parcel sabun"
   }
 }
