@@ -3,6 +3,7 @@
       <Navbar />
       <Hero />
       <ProductCategories :categories="categories" />
+      <Testimonial :testimonial="testimonial" />
     </div>
 </template>
 
@@ -12,15 +13,17 @@ import Navbar from '../components/Navbar.vue'
 import Hero from '../components/Hero.vue'
 import ProductCategories from '../components/ProductCategories.vue'
 import landingPage from '../assets/landingPage.json'
+import Testimonial from '../components/Testimonial.vue'
 
 export default defineComponent({
   name: 'MainLayout',
 
   setup() {
     let categories = computed(() => landingPage?.categories)
+    let testimonial = computed(() => landingPage?.testimonial)
     
-    return { categories };
+    return { categories, testimonial };
   },
-  components: { Navbar, Hero, ProductCategories}
+  components: { Navbar, Hero, ProductCategories, Testimonial }
 });
 </script>

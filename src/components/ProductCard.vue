@@ -1,7 +1,8 @@
 <template>
   <div class="q-pa-md items-start col-3">
     <q-card class="my-card">
-      <q-img src="../assets/cookies6.jpg" :ratio="16/9"/>
+      <!-- <img :src="imgUrl(product?.img)" /> -->
+      <q-img src="../assets/cookies7.jpg" :ratio="16/9"/>
        <q-card-section>
         <div class="text-weight-medium">{{ product.name }}</div>
         <div class="text-subtitle2">{{ product.price }}</div>
@@ -11,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Product from "../types/Product"
+import Product from '../types/Product'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
@@ -20,6 +21,6 @@ export default defineComponent({
         required: true,
         type: Object as PropType<Product>
       }
-    }
+    },
 })
 </script>

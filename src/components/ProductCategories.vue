@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-center" style="margin:20px 0 0 auto; max-width:1366px;">
         <div class=" col-10 " v-for="cat in categories" :key="cat">
-            <div class="text-h5 text-weight-medium" style="margin:0 0 10px 0;">
+            <div class="text-h5 text-weight-medium">
                 {{ cat?.name }}
             </div>
             <div class="row justify-between">
