@@ -30,7 +30,12 @@ export default defineComponent({
     <div class="q-container">
       <Navbar />
       <Hero @goToCategories='goToElm' />
-      <ProductCategories :categories="categories" />
+      <ProductCategories 
+        v-for="cat in categories" 
+        :key='cat.id' 
+        :name='cat.name'
+        :products="cat.products" 
+      />
       <Testimonial :testimonial="testimonial" />
       <Footer />
     </div>
