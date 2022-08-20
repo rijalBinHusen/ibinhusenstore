@@ -12,7 +12,7 @@
                 Metode pebayaran yang mudah.
             </span>
             <span class="col-2">
-                <q-btn color="primary" label="Mulai pencarian" />
+                <q-btn @click="goToCat" color="primary" label="Mulai pencarian" />
             </span>
             <span class="col-1 row">
                 <div class="col">
@@ -47,8 +47,12 @@ import { defineComponent } from 'vue'
 import { fasGift, fasHandsHelping, fasBusinessTime } from '@quasar/extras/fontawesome-v5'
 
 export default defineComponent({
-    setup() {
-        return { fasGift, fasHandsHelping, fasBusinessTime }
+    emits: ['goToCategories'],
+    setup(props, { emit }) {
+        const goToCat = () => {
+            emit('goToCategories')
+        }
+        return { goToCat, fasGift, fasHandsHelping, fasBusinessTime }
     }
 })
 </script>

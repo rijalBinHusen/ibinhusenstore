@@ -1,15 +1,5 @@
-<template>
-    <div class="q-container">
-      <Navbar />
-      <Hero />
-      <ProductCategories :categories="categories" />
-      <Testimonial :testimonial="testimonial" />
-      <Footer />
-    </div>
-</template>
-
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent} from 'vue';
 import Navbar from '../components/Navbar.vue'
 import Hero from '../components/Hero.vue'
 import ProductCategories from '../components/ProductCategories.vue'
@@ -23,9 +13,25 @@ export default defineComponent({
   setup() {
     let categories = computed(() => landingPage?.categories)
     let testimonial = computed(() => landingPage?.testimonial)
+
+    const goToElm = () => {
+      window.scrollTo(0, 600)
+    }
     
-    return { categories, testimonial };
+    return { goToElm, categories, testimonial };
   },
   components: { Navbar, Hero, ProductCategories, Testimonial, Footer }
 });
+
 </script>
+
+
+<template>
+    <div class="q-container">
+      <Navbar />
+      <Hero @goToCategories='goToElm' />
+      <ProductCategories :categories="categories" />
+      <Testimonial :testimonial="testimonial" />
+      <Footer />
+    </div>
+</template>
