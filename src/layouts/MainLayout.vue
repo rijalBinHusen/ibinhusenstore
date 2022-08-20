@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width:1366px; margin:0 auto;">
+  <div class="bg-grey-1" style="max-width:1366px; margin:0 auto;">
     <q-layout view="lHh Lpr lFf">
       <q-page-container>
         <router-view />
