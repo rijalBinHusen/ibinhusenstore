@@ -6,8 +6,12 @@
                 <q-breadcrumbs-el label="Home" to="/" />
                 <q-breadcrumbs-el label="Produk" />
             </q-breadcrumbs>
+            
+            <ProdukDetails 
+              :produkInfo='produk.produk' 
+              :produkDetails='produk.details.content'
+            />
         </div>
-        <h1>Hello world</h1>
       </div>
     <Footer />
 </template>
@@ -16,8 +20,13 @@
 import { defineComponent } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
+import ProdukDetails from '../components/ProdukDetails.vue'
+import produk from '../assets/produkDetails.json'
 
 export default defineComponent({
-    components: { Navbar, Footer }
+    components: { Navbar, Footer, ProdukDetails },
+    setup() {
+      return { produk }
+    }
 })
 </script>

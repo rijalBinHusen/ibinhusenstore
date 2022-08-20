@@ -38,7 +38,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { fasSplotch, fasStar } from '@quasar/extras/fontawesome-v5'
 import Rating from './Rating.vue'
 
 export default defineComponent({
@@ -47,16 +46,6 @@ export default defineComponent({
             required: true,
             type: Object,
         }
-    },
-    setup() {
-        const arrayOfNumber = (n: number) => {
-            let result = []
-            for(let i=1; i <= n; i++) {
-                result.push(i)
-            }
-            return result
-        }
-        return { fasSplotch, arrayOfNumber, fasStar }
     },
     components: {
         Rating

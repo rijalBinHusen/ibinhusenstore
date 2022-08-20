@@ -1,0 +1,20 @@
+{
+    "produk": {
+        "id": "asd1293uasdads1",
+        "name": "Cookies kacang @250gr",
+        "price": 25000,
+        "img": "cookies5"
+    },
+    "details": {
+        "id": "asd1293uasdads1",
+        "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus voluptatum ipsa molestias eius minima corrupti vitae, quae veritatis in deserunt exercitationem cupiditate quis perferendis consectetur eos nisi. Repellat, ut repudiandae."
+    },
+    "testimonial": {
+        "id": "asd1293uasdads1",
+        "img": "cookies3",
+        "user": "User Kita",
+        "rating": 3,
+        "content": "What a great cookies with my family and I should try again next time soon ...",
+        "product": "Parcel sabun"
+    }
+}

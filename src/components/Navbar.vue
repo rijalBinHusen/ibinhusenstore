@@ -1,9 +1,9 @@
 <template>
     <q-header reveal class='rounded-borders bg-grey-1' elevated style="max-width:1366px; margin:0 auto;">
       <q-toolbar>
-        <q-toolbar-title class='text-h5'> 
-          <strong class="text-primary">
-            Ibinhusen store
+        <q-toolbar-title @click="redirect" class='text-h5 cursor-pointer'> 
+          <strong class="text-primary" style="text-decoration:none;">
+              Ibinhusen store
           </strong>
         </q-toolbar-title>
          <q-space />
@@ -21,15 +21,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Navbar',
 
   setup() {
+    const router = useRouter()
     let links = ref(['Home', 'Cari barang', 'Keranjang', 'Testimonial'])
-    // let link = ref(null)
+
+    const redirect = async () => {
+      await router.push({ path: '/'})
+    }
     
-    return { links, };
+    return { links, redirect };
   },
 });
 </script>
