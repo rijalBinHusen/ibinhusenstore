@@ -20,7 +20,7 @@ export default defineComponent({
         }
     },
     setup() {
-        const starClass = (index, rating) => {
+        const starClass = (index: number, rating: number) => {
             return index > rating ? 'text-black' : 'text-yellow'
         }
 
