@@ -4,6 +4,7 @@
       <Hero />
       <ProductCategories :categories="categories" />
       <Testimonial :testimonial="testimonial" />
+      <Footer />
     </div>
 </template>
 
@@ -14,6 +15,7 @@ import Hero from '../components/Hero.vue'
 import ProductCategories from '../components/ProductCategories.vue'
 import landingPage from '../assets/landingPage.json'
 import Testimonial from '../components/Testimonial.vue'
+import Footer from '../components/Footer.vue'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -24,6 +26,6 @@ export default defineComponent({
     
     return { categories, testimonial };
   },
-  components: { Navbar, Hero, ProductCategories, Testimonial }
+  components: { Navbar, Hero, ProductCategories, Testimonial, Footer }
 });
 </script>

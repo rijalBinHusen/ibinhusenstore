@@ -1,5 +1,5 @@
 <template>
-    <q-header class='rounded-borders bg-white' elevated style="max-width:1366px; margin:0 auto;">
+    <q-header reveal class='rounded-borders bg-white' elevated style="max-width:1366px; margin:0 auto;">
       <q-toolbar>
         <q-toolbar-title class='text-h5'> 
           <strong class="text-primary">
