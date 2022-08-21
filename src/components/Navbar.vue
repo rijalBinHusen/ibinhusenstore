@@ -1,6 +1,5 @@
 <template>
-    <q-header reveal class='rounded-borders bg-grey-1' elevated style="max-width:1366px; margin:0 auto;">
-      <q-toolbar>
+      <q-toolbar class='rounded-borders shadow-1 bg-grey-1'>
         <q-toolbar-title @click="redirect" class='text-h5 cursor-pointer'> 
           <strong class="text-primary" style="text-decoration:none;">
               Ibinhusen store
@@ -12,11 +11,21 @@
         notice shrink property since we are placing it
         as child of QToolbar
       -->
-        <q-tabs shrink v-for="link in links" :key='link' class="text-black text-subtitle1">
-          <q-tab :name="link" :label="link" />
+        <q-tabs 
+          shrink 
+          v-for="link in links" 
+          :key='link.name' 
+          class="text-black text-subtitle1"
+          active-color="primary"
+        >
+          <q-route-tab
+            :to="link.path"
+            :name="link.name" 
+            :label="link.name"
+            exact
+          />
         </q-tabs>
         </q-toolbar>
-    </q-header>
 </template>
 
 <script lang="ts">
@@ -28,7 +37,12 @@ export default defineComponent({
 
   setup() {
     const router = useRouter()
-    let links = ref(['Home', 'Cari barang', 'Keranjang', 'Testimonial'])
+    let links = ref([
+      { name: 'Home', path: '/'  },
+      { name: 'Cari barang', path: '/' },
+      { name: 'Keranjang', path: '/keranjang' },
+      { name: 'Testimonial', path: '/' }
+    ])
 
     const redirect = async () => {
       await router.push({ path: '/'})
