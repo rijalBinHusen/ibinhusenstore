@@ -26,7 +26,12 @@
             </span>
             
             <div class="col-2">
-                <q-btn :icon="fasShoppingCart" color="primary" label="Masukkan keranjang" />
+                <q-btn 
+                    @click="showNotif"
+                    :icon="fasShoppingCart" 
+                    color="primary" 
+                    label="Masukkan keranjang" 
+                />
             </div>
             
             <div class="col-1 text-subtitle1">
@@ -42,6 +47,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { fasShoppingCart } from '@quasar/extras/fontawesome-v5'
+import { useQuasar } from 'quasar'
 
 export default defineComponent({
     props: {
@@ -55,8 +61,18 @@ export default defineComponent({
         }
     },
     setup() {
-        const slide = ref(1)
-        return { fasShoppingCart, slide }
+        const slide = ref(1);
+        const $q = useQuasar()
+
+        const showNotif = () => {
+            console.log($q)
+            $q.notify({
+                message: 'Berhasil dimasukkan keranjang',
+                color: 'primary',
+                timeout: 500,
+            })
+      }
+        return { fasShoppingCart, slide, showNotif }
     },
     components: { }
 })

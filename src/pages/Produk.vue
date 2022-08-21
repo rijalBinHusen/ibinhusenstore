@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="row justify-center">
+    <div class="row justify-center" style="margin:20px 0 0 auto;">
       <div class="col-10">
           <q-breadcrumbs>
               <q-breadcrumbs-el label="Home" to="/" />
