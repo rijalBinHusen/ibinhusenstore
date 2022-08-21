@@ -1,5 +1,5 @@
 <template>
-   <div class="row justify-center">
+   <div class="row justify-center" style="margin-top:60px;">
       <div class="col-10 row">
       <div class="col">    
          <q-toolbar-title class='text-h5' style="margin-bottom:10px;"> 

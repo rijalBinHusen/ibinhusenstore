@@ -68,6 +68,7 @@
                     <p class="text-h6">Total harga: {{ formatPrice(products.reduce((n, {total, price}) => n + (total*price), 0)) }}</p>
                     <div style="margin-left:20px;">
                         <q-btn
+                            to="/order"
                             color="primary"
                             label="Buat pesanan"
                         />
