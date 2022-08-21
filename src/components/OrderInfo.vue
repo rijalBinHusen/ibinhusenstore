@@ -36,7 +36,24 @@
                 </div>
 
                 <div v-if="step == 2">
-                    <q-input v-model="dikirim" label="Pesanan dikirim sebelum" />
+                    <q-input 
+                        v-model="dikirim" 
+                        mask='date' 
+                        :rules="[dikirim]" 
+                        label="Pesanan dikirim sebelum" 
+                    >
+                        <template v-slot:append>
+                            <q-icon name="event" class="cursor-pointer">
+                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                                <q-date v-model="dikirim" :options="minDate" minimal>
+                                <div class="row items-center justify-end">
+                                    <q-btn v-close-popup label="Close" color="primary" flat />
+                                </div>
+                                </q-date>
+                            </q-popup-proxy>
+                            </q-icon>
+                        </template>
+                    </q-input>
                     <q-input v-model="pembayaran" label="Pilih metode pembayaran" />
                 </div>
                 <div class="row">
@@ -70,11 +87,21 @@ export default defineComponent({
         }
     },
     setup(props, { emit }) {
-      const judulPesanan = ref(null);
-      const namaPemesan = ref(null);
-      const nomorWhatsApp = ref(null)
-      const dikirim = ref(null)
-      const pembayaran = ref(null)
+    const minDate =  (date) => {
+        let nowDate = new Date()
+        nowDate.setDate(nowDate.getDate() + 14)
+        let minimalDate = nowDate.toISOString().slice(0, 10).replace(/-/g, '/')
+        if(date) {
+            return date >= minimalDate
+        }
+        return minimalDate
+    }
+
+    const judulPesanan = ref(null);
+    const namaPemesan = ref(null);
+    const nomorWhatsApp = ref(null)
+    const dikirim = ref(minDate())
+    const pembayaran = ref(null)
       
       const next = () => {
           emit('nextStep')
@@ -84,7 +111,16 @@ export default defineComponent({
           emit('beforeStep')
       }
 
-      return { judulPesanan, namaPemesan, nomorWhatsApp, next, before }
+      return { 
+          judulPesanan, 
+          namaPemesan, 
+          nomorWhatsApp, 
+          next, 
+          before, 
+          dikirim, 
+          pembayaran,
+          minDate
+    }
     },
 })
 </script>

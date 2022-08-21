@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import OrderStepper from '../components/OrderStepper.vue'
