@@ -89,7 +89,7 @@ export default defineComponent({
     },
     setup(props, { emit }) {
 
-    const minDate =  (date) => {
+    const minDate =  (date: string) => {
         let nowDate = new Date()
         nowDate.setDate(nowDate.getDate() + 14)
         let minimalDate = nowDate.toISOString().slice(0, 10).replace(/-/g, '/')
@@ -121,7 +121,7 @@ export default defineComponent({
     const judulPesanan = ref(null);
     const namaPemesan = ref(null);
     const nomorWhatsApp = ref(null)
-    const dikirim = ref(minDate())
+    const dikirim = ref(minDate(''))
     const pembayaran = ref(null)
       
       const next = () => {
