@@ -58,6 +58,7 @@
                 </div>
                 <div class="row">
                     <q-btn 
+                        v-if='showNextBtn'
                         @click="next"
                         color="primary" 
                         label="Selanjutnya" 
@@ -77,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
     props: {
@@ -87,6 +88,7 @@ export default defineComponent({
         }
     },
     setup(props, { emit }) {
+
     const minDate =  (date) => {
         let nowDate = new Date()
         nowDate.setDate(nowDate.getDate() + 14)
@@ -96,6 +98,25 @@ export default defineComponent({
         }
         return minimalDate
     }
+
+    const showNextBtn = computed(() => {
+        if(
+            props.step == 1 
+            && judulPesanan.value 
+            && namaPemesan.value 
+            && nomorWhatsApp.value
+        ) {
+            return true
+        }
+        else if(
+            props.step == 2
+            && dikirim.value 
+            && pembayaran.value
+        ) {
+            return true
+        }
+        return false
+    })
 
     const judulPesanan = ref(null);
     const namaPemesan = ref(null);
@@ -119,7 +140,8 @@ export default defineComponent({
           before, 
           dikirim, 
           pembayaran,
-          minDate
+          minDate,
+          showNextBtn,
     }
     },
 })

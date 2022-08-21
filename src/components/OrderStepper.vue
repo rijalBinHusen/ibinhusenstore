@@ -1,7 +1,8 @@
 <template>
     <div>
         <StepperNumber :totalStep="totalStep" :step='step' />
-        <OrderInfo @nextStep='next' :step='step' @beforeStep='before' />
+        <OrderInfo v-if="step < 3" @nextStep='next' :step='step' @beforeStep='before' />
+        <OrderFinished v-else />
     </div>
 </template>
 
@@ -9,6 +10,7 @@
 import { defineComponent, ref } from 'vue'
 import OrderInfo from '../components/OrderInfo.vue'
 import StepperNumber from '../components/StepperNumber.vue'
+import OrderFinished from './OrderFinished.vue'
 
 export default defineComponent({
     setup() {  
@@ -30,7 +32,8 @@ export default defineComponent({
     },
     components: {
         OrderInfo,
-        StepperNumber
+        StepperNumber,
+        OrderFinished,
     }
 })
 </script>
