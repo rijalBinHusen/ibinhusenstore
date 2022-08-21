@@ -1,9 +1,13 @@
 <template>
     <Navbar />
     <div class="row justify-center">
-        <div class="col-10">
-            <StepperNumber :totalStep="3" :step='step' />
-            <OrderInfo @nextStep='next' />
+        <div class="col-10" style="margin-top:20px;">
+        <q-breadcrumbs>
+            <q-breadcrumbs-el label="Home" to="/" />
+            <q-breadcrumbs-el label="Keranjang" to="/keranjang" />
+            <q-breadcrumbs-el label="pesan" />
+        </q-breadcrumbs>
+        <OrderStepper />
         </div>
     </div>
     <Footer />
@@ -13,17 +17,9 @@
 import { defineComponent, ref } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
-import OrderInfo from '../components/OrderInfo.vue'
-import StepperNumber from '../components/StepperNumber.vue'
+import OrderStepper from '../components/OrderStepper.vue'
 
 export default defineComponent({
-    setup() {
-        const step = ref(1)
-        const next = () => {
-            step.value++
-        }
-        return { step, next }
-    },
-    components: { Navbar, Footer, OrderInfo, StepperNumber },
+    components: { Navbar, Footer, OrderStepper},
 })
 </script>
