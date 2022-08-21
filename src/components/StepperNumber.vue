@@ -7,7 +7,7 @@
         >
             <q-avatar
                 size="md" 
-                :color="[number == step ? 'primary' : 'grey']" 
+                :color="[number == step ? 'primary' : 'grey'].toString()" 
                 text-color="white"
             >
                 {{ number }}

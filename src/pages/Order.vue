@@ -3,7 +3,7 @@
     <div class="row justify-center">
         <div class="col-10">
             <StepperNumber :totalStep="3" :step='step' />
-            <OrderInfo />
+            <OrderInfo @nextStep='next' />
         </div>
     </div>
     <Footer />
@@ -19,7 +19,10 @@ import StepperNumber from '../components/StepperNumber.vue'
 export default defineComponent({
     setup() {
         const step = ref(1)
-        return { step }
+        const next = () => {
+            step.value++
+        }
+        return { step, next }
     },
     components: { Navbar, Footer, OrderInfo, StepperNumber },
 })
