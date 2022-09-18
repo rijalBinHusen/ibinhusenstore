@@ -29,11 +29,7 @@
         <div class="col self-center">
             
             <div class="column q-gutter-sm" style="padding-left:20px; max-width: 300px">
-                <div v-if="step == 1">
-                    <q-input v-model="judulPesanan" label="Judul pesanan" />
-                    <q-input v-model="namaPemesan" label="Nama pemesan" />
-                    <q-input v-model="nomorWhatsApp" label="Nomo whatsapp" />
-                </div>
+                <OrderDetails v-if="step == 1" @details="setOrderDetails($event)" />
 
                 <div v-if="step == 2">
                     <q-input 
@@ -78,9 +74,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
+import OrderDetails from './OrderDetails.vue'
+import orderDetailsInfo from '../types/orderDetailsInfo'
 
 export default defineComponent({
+    components: { OrderDetails },
     props: {
         step: {
             type: Number,
@@ -99,27 +98,8 @@ export default defineComponent({
         return minimalDate
     }
 
-    const showNextBtn = computed(() => {
-        if(
-            props.step == 1 
-            && judulPesanan.value 
-            && namaPemesan.value 
-            && nomorWhatsApp.value
-        ) {
-            return true
-        }
-        else if(
-            props.step == 2
-            && dikirim.value 
-            && pembayaran.value
-        ) {
-            return true
-        }
-        return false
-    })
-
-    const judulPesanan = ref(null);
-    const namaPemesan = ref(null);
+    const showNextBtn = ref(false)
+    let orderDetailsValue = {}
     const nomorWhatsApp = ref(null)
     const dikirim = ref(minDate(''))
     const pembayaran = ref(null)
@@ -132,9 +112,14 @@ export default defineComponent({
           emit('beforeStep')
       }
 
+      const setOrderDetails = (ev: orderDetailsInfo) => {
+          if(ev.namaPemesan && ev.judulPesanan && ev.metodePembayaran) {
+              showNextBtn.value = true
+              orderDetailsValue = ev
+          }
+      }
+
       return { 
-          judulPesanan, 
-          namaPemesan, 
           nomorWhatsApp, 
           next, 
           before, 
@@ -142,6 +127,7 @@ export default defineComponent({
           pembayaran,
           minDate,
           showNextBtn,
+          setOrderDetails,
     }
     },
 })

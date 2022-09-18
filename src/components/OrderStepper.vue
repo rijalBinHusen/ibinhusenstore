@@ -15,7 +15,7 @@ import OrderFinished from './OrderFinished.vue'
 export default defineComponent({
     setup() {  
         const step = ref(1)
-        const totalStep = ref(3)
+        const totalStep = ref(5)
         const next = () => {
             if(step.value < 3) {
                 step.value++
