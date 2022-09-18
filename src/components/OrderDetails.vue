@@ -7,15 +7,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from 'vue'
+import { defineComponent, PropType, watch } from 'vue'
 import { ref } from '@vue/reactivity'
+import orderDetailsInfo from '../types/orderDetailsInfo'
 
 export default defineComponent({
     emit: [ 'details' ],
+    props: {
+        detailsProp: Object as PropType<orderDetailsInfo>
+    },
     setup(props, { emit }) {
-        const judulPesanan = ref('')
-        const namaPemesan = ref('')
-        const metodePembayaran = ref('')
+        const judulPesanan = ref(props.detailsProp?.judulPesanan)
+        const namaPemesan = ref(props.detailsProp?.namaPemesan)
+        const metodePembayaran = ref(props.detailsProp?.metodePembayaran)
 
         watch([judulPesanan, namaPemesan, metodePembayaran], () => {
             emit('details', { 
@@ -24,7 +28,6 @@ export default defineComponent({
                 metodePembayaran: metodePembayaran.value 
                 } 
             )
-
         })
 
         return { judulPesanan, namaPemesan, metodePembayaran}
