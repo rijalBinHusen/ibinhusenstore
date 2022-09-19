@@ -4,8 +4,8 @@
         <q-input v-model="nomorWhatsapp" label="Nomor whatsApp" />
         <q-input 
             v-model="dikirim" 
-            mask='date' 
-            :rules="[dikirim]" 
+            mask='date'
+            :rules="[minDate]" 
             label="Pesanan dikirim sebelum" 
         >
             <template v-slot:append>
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from 'vue'
+import { defineComponent, ref, PropType, watch, onMounted } from 'vue'
 import orderDetailsInfo from '../types/orderDetailsInfo'
 
 export default defineComponent({
@@ -33,10 +33,11 @@ export default defineComponent({
     },
     emits: ['details'],
     setup(props, { emit }) {
-        const minDate =  (date: string) => {
-            let nowDate = new Date()
-            nowDate.setDate(nowDate.getDate() + 14)
-            let minimalDate = nowDate.toISOString().slice(0, 10).replace(/-/g, '/')
+        let nowDate = new Date()
+        nowDate.setDate(nowDate.getDate() + 14)
+        let minimalDate = nowDate.toISOString().slice(0, 10).replace(/-/g, '/')
+
+        const minDate =  (date: string) =>  {
             if(date) {
                 return date >= minimalDate
             }
@@ -45,14 +46,28 @@ export default defineComponent({
 
         const namaPenerima = ref(props.detailsProp?.namaPenerima)
         const nomorWhatsapp = ref(props.detailsProp?.nomorWhatsapp)
-        const dikirim = ref(minDate(props.detailsProp?.dikirim))
+        const dikirim = ref(props.detailsProp?.dikirim)
 
-        watch([namaPenerima, nomorWhatsapp, dikirim], () => {
+        onMounted(() => {
+            if(!dikirim.value) {
+                dikirim.value = minimalDate
+            }
+        })
+
+        const send = () => {
             emit('details', {
                 namaPenerima: namaPenerima.value,
                 nomorWhatsapp: nomorWhatsapp.value,
                 dikirim: dikirim.value
             })
+        }
+
+        watch([namaPenerima, nomorWhatsapp, dikirim], () => {
+            send()
+        })
+
+        onMounted(() => {
+            send()
         })
 
 

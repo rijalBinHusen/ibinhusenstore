@@ -33,18 +33,18 @@
                 <OrderDetailsPenerima :detailsProp="orderDetailsValue" v-if="step == 2" @details="setOrderDetails($event)" />
                 <div class="row">
                     <q-btn 
-                        v-if='showNextBtn'
-                        @click="next"
-                        color="primary" 
-                        label="Selanjutnya" 
-                        style="margin-right:20px;"
-                    />
-                    
-                    <q-btn 
                         v-if="step > 1"
                         @click="before"
                         color="negative" 
                         label="Sebelumnya" 
+                        style="margin-right:20px;"
+                    />
+                    
+                    <q-btn 
+                        v-if='showNextBtn'
+                        @click="next"
+                        color="primary" 
+                        label="Selanjutnya" 
                     />
                 </div>
             </div>
@@ -98,15 +98,18 @@ export default defineComponent({
               if(ev.namaPemesan && ev.judulPesanan && ev.metodePembayaran) {
                 showNextBtn.value = true
                 orderDetailsValue.value = ev
+                return
               }
           } else if(props.step == 2) {
               if(ev.namaPenerima && ev.nomorWhatsapp && ev.dikirim) {
                   showNextBtn.value = true
                   orderDetailsValue.value = Object.assign(orderDetailsValue.value, ev)
-                  //{ ...orderDetailsValue.value, ev}
-                  console.log(orderDetailsValue.value)
+                  return
+              } else {
+                  orderDetailsValue.value = Object.assign(orderDetailsValue.value, ev)
               }
           }
+          showNextBtn.value = false
       }
 
       return { 
