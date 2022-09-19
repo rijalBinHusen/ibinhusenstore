@@ -8,24 +8,26 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import OrderInfo from '../components/OrderInfo.vue'
 import StepperNumber from '../components/StepperNumber.vue'
 import OrderFinished from './OrderFinished.vue'
 
 export default defineComponent({
-    setup() {  
-        const step = ref(1)
+    setup() {
+        const route = useRoute()  
+        const step = Number(route.params.step)
         const totalStep = ref(5)
         const next = () => {
-            if(step.value < 5) {
-                step.value++
-            }
+            // if(step < 5) {
+            //     step++
+            // }
         }
 
         const before = () => {
-            if(step.value > 1) {
-                step.value--
-            }
+            // if(step.value > 1) {
+            //     step--
+            // }
         }
 
         return { step, next, totalStep, before }
