@@ -28,9 +28,10 @@
         </div>
         <div class="col self-center">
             
-            <div class="column q-gutter-sm" style="padding-left:20px; max-width: 300px">
+            <div class="column q-gutter-sm" style="padding-left:20px; max-width: 400px">
                 <OrderDetails :detailsProp="orderDetailsValue"  v-if="step == 1" @details="setOrderDetails($event)" />
                 <OrderDetailsPenerima :detailsProp="orderDetailsValue" v-if="step == 2" @details="setOrderDetails($event)" />
+                <OrderAlamat :detailsProp="orderDetailsValue" v-if="step == 3" @details="setOrderDetails($event)" />
                 <div class="row">
                     <q-btn 
                         v-if="step > 1"
@@ -44,8 +45,9 @@
                         v-if='showNextBtn'
                         @click="next"
                         color="primary" 
-                        label="Selanjutnya" 
+                        :label="step == 3 ? 'Buat pesanan' : 'Selanjutnya'" 
                     />
+                    
                 </div>
             </div>
         </div>
@@ -56,10 +58,11 @@
 import { defineComponent, ref } from 'vue'
 import OrderDetails from './OrderDetails.vue'
 import OrderDetailsPenerima from './OrderDetailsPenerima.vue'
+import OrderAlamat from './OrderAlamat.vue'
 import orderDetailsInfo from '../types/orderDetailsInfo'
 
 export default defineComponent({
-    components: { OrderDetails, OrderDetailsPenerima },
+    components: { OrderDetails, OrderDetailsPenerima, OrderAlamat },
     props: {
         step: {
             type: Number,
@@ -102,6 +105,15 @@ export default defineComponent({
               }
           } else if(props.step == 2) {
               if(ev.namaPenerima && ev.nomorWhatsapp && ev.dikirim) {
+                  showNextBtn.value = true
+                  orderDetailsValue.value = Object.assign(orderDetailsValue.value, ev)
+                  return
+              } else {
+                  orderDetailsValue.value = Object.assign(orderDetailsValue.value, ev)
+              }
+          }
+            else if(props.step == 3) {
+              if(ev.provinsi && ev.kabupaten && ev.kecamatan && ev.kodePos && ev.alamatLengkap) {
                   showNextBtn.value = true
                   orderDetailsValue.value = Object.assign(orderDetailsValue.value, ev)
                   return

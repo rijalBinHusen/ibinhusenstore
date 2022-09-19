@@ -1,7 +1,7 @@
 <template>
     <div>
         <StepperNumber :totalStep="totalStep" :step='step' />
-        <OrderInfo v-if="step < 3" @nextStep='next' :step='step' @beforeStep='before' />
+        <OrderInfo v-if="step < 5" @nextStep='next' :step='step' @beforeStep='before' />
         <OrderFinished v-else />
     </div>
 </template>
@@ -17,7 +17,7 @@ export default defineComponent({
         const step = ref(1)
         const totalStep = ref(5)
         const next = () => {
-            if(step.value < 3) {
+            if(step.value < 5) {
                 step.value++
             }
         }
