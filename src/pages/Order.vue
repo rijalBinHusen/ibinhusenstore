@@ -7,12 +7,12 @@
                 <q-breadcrumbs-el label="Keranjang" to="/keranjang" />
                 <q-breadcrumbs-el label="pesan" />
             </q-breadcrumbs>
-        </div>        
-        <div class="col self-center">
             <StepperNumber :totalStep="totalStep" :step="step"/>
-            <div class="column q-gutter-sm" style="padding-left:20px; max-width: 400px">
+            <div class="row" style="min-height: 200px">
                 <OrderItems />
-                <router-view></router-view>
+                <div class="col self-center">
+                    <router-view class="column q-gutter-sm" style="padding-left:20px; max-width:400px;"></router-view>
+                </div>
             </div>
         </div>
         <Footer />
