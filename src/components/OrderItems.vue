@@ -26,3 +26,11 @@
     </div>
 </div>
 </template>
+
+<style lang="scss" scoped>
+    .vr {
+        margin-right: 20px;
+        padding-right: 20px;
+        border-right: 3px solid $primary;
+    }
+</style>
