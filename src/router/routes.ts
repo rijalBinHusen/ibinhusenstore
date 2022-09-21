@@ -18,6 +18,13 @@ const routes: RouteRecordRaw[] = [
     name: 'order',
     component: () => import('pages/Order.vue'),
     props: true,
+    children: [
+      {
+        path: '',
+        component: () => import('components/OrderDetails.vue'),
+        name: 'pemesan',
+      },
+    ],
   },
 
   // Always leave this as last one,

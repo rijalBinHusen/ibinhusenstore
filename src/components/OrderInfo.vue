@@ -1,57 +1,28 @@
 <template>
-    <div class="row" style="min-height: 200px;">
-        <div class="col vr self-center">
-            <div class="column items-end text-subtitle1">
-                <ol>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                    <li>Pastel isi ayam @250gr (4 buah)</li>
-                </ol>
-            </div>
-        </div>
-        <div class="col self-center">
+<div class="col self-center">
+    <div class="column q-gutter-sm" style="padding-left:20px; max-width: 400px">
+        <OrderDetails :detailsProp="orderDetailsValue"  v-if="step == 1" @details="setOrderDetails($event)" />
+        <OrderDetailsPenerima :detailsProp="orderDetailsValue" v-if="step == 2" @details="setOrderDetails($event)" />
+        <OrderAlamat :detailsProp="orderDetailsValue" v-if="step == 3" @details="setOrderDetails($event)" />
+        <div class="row">
+            <q-btn 
+                v-if="step > 1"
+                :to="{ name: order, params: { step: step - 1 } }"
+                color="negative" 
+                label="Sebelumnya" 
+                style="margin-right:20px;"
+            />
             
-            <div class="column q-gutter-sm" style="padding-left:20px; max-width: 400px">
-                <OrderDetails :detailsProp="orderDetailsValue"  v-if="step == 1" @details="setOrderDetails($event)" />
-                <OrderDetailsPenerima :detailsProp="orderDetailsValue" v-if="step == 2" @details="setOrderDetails($event)" />
-                <OrderAlamat :detailsProp="orderDetailsValue" v-if="step == 3" @details="setOrderDetails($event)" />
-                <div class="row">
-                    <q-btn 
-                        v-if="step > 1"
-                        @click="before"
-                        color="negative" 
-                        label="Sebelumnya" 
-                        style="margin-right:20px;"
-                    />
-                    
-                    <q-btn 
-                        v-if='showNextBtn'
-                        @click="next"
-                        color="primary" 
-                        :label="step == 3 ? 'Buat pesanan' : 'Selanjutnya'" 
-                    />
-                    
-                </div>
-            </div>
+            <q-btn 
+                v-if='showNextBtn'
+                :to="{ name: order, params: { step: step + 1 } }"
+                color="primary" 
+                :label="step == 3 ? 'Buat pesanan' : 'Selanjutnya'" 
+            />
+            
         </div>
     </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -69,7 +40,7 @@ export default defineComponent({
             required: true,
         }
     },
-    setup(props, { emit }) {
+    setup(props) {
 
     const showNextBtn = ref(false)
     let orderDetailsValue = ref<orderDetailsInfo> ({
@@ -87,12 +58,10 @@ export default defineComponent({
     })
       
       const next = () => {
-          emit('nextStep')
           showNextBtn.value = false
       }
 
       const before = () => {
-          emit('beforeStep')
           showNextBtn.value = true
       }
 
