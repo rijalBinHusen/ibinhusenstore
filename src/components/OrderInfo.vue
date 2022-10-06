@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <div class="col self-center">
     <div class="column q-gutter-sm" style="padding-left:20px; max-width: 400px">
         <OrderDetails :detailsProp="orderDetailsValue"  v-if="step == 1" @details="setOrderDetails($event)" />
@@ -110,4 +110,4 @@ export default defineComponent({
         padding-right: 20px;
         border-right: 3px solid $primary;
     }
-</style>
+</style> -->

@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/order/:step',
-    name: 'order',
+    name: 'order-parent',
     component: () => import('pages/Order.vue'),
     props: true,
     children: [
@@ -23,6 +23,26 @@ const routes: RouteRecordRaw[] = [
         path: '',
         component: () => import('components/OrderDetails.vue'),
         name: 'pemesan',
+      },
+      {
+        path: '',
+        component: () => import('components/OrderDetailsPenerima.vue'),
+        name: 'penerima',
+      },
+      {
+        path: '',
+        component: () => import('components/OrderAlamat.vue'),
+        name: 'alamat',
+      },
+      {
+        path: '',
+        component: () => import('components/OrderBayar.vue'),
+        name: 'pembayaran',
+      },
+      {
+        path: '',
+        component: () => import('components/OrderFinished.vue'),
+        name: 'selesai',
       },
     ],
   },

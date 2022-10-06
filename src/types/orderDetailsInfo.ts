@@ -1,4 +1,4 @@
-interface orderDetailsInfo {
+interface orderDetailsInfoTypes {
   judulPesanan: string;
   namaPemesan: string;
   metodePembayaran: string;
@@ -12,4 +12,4 @@ interface orderDetailsInfo {
   dikirim: string;
 }
 
-export default orderDetailsInfo;
+export default orderDetailsInfoTypes;
