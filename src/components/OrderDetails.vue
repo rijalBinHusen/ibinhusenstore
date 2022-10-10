@@ -1,11 +1,14 @@
 <template>
   <div>
-    <q-input v-model="judulPesanan" label="Judul pesanan" />
-    <q-input v-model="namaPemesan" label="Nama pemesan" />
-    <q-input v-model="metodePembayaran" label="Metode pembayaran" />
-    <div v-if="judulPesanan && namaPemesan && metodePembayaran" class="row">
+    <q-input v-model="orderDetailsInfo.judulPesanan" label="Judul pesanan" />
+    <q-input v-model="orderDetailsInfo.namaPemesan" label="Nama pemesan" />
+    <q-input
+      v-model="orderDetailsInfo.metodePembayaran"
+      label="Metode pembayaran"
+    />
+    <div v-if="isPemesanComplete()" class="row">
       <q-btn
-        :to="{ name: 'order', params: { step: 'penerima' } }"
+        :to="{ path: `/order/${orderId}/penerima` }"
         color="primary"
         label="Selanjutnya (Penerima)"
       />
@@ -15,16 +18,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ref } from '@vue/reactivity';
-import orderDetailsInfo from '../composable/orders';
+import { orderDetailsInfo, isPemesanComplete } from '../composable/orders';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   setup() {
-    const judulPesanan = ref(orderDetailsInfo.value.judulPesanan);
-    const namaPemesan = ref(orderDetailsInfo.value.namaPemesan);
-    const metodePembayaran = ref(orderDetailsInfo.value.metodePembayaran);
+    const route = useRoute();
+    const orderId = route.params.orderId;
 
-    return { judulPesanan, namaPemesan, metodePembayaran };
+    return { orderDetailsInfo, orderId, isPemesanComplete };
   },
 });
 </script>

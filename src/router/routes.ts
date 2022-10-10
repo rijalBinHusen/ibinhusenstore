@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/Keranjang.vue'),
   },
   {
-    path: '/order/:idOrder/',
+    path: '/order/:orderId/',
     name: 'order',
     component: () => import('pages/Order.vue'),
     props: true,
