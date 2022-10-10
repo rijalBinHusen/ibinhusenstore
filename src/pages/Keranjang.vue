@@ -68,7 +68,7 @@
           </p>
           <div style="margin-left: 20px">
             <q-btn
-              :to="{ name: 'order-parent', params: { step: 'pemesan' } }"
+              :to="{ path: `order/${new Date().getTime()}/pemesan` }"
               color="primary"
               label="Buat pesanan"
             />
