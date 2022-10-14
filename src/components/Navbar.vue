@@ -1,5 +1,8 @@
 <template>
-  <q-header elevated>
+  <q-header
+    style="max-width: 1366px; margin-left: auto; margin-right: auto"
+    elevated
+  >
     <q-toolbar class="rounded-borders shadow-1 bg-grey-1">
       <q-btn
         v-if="isRoleAdmin"
@@ -37,13 +40,27 @@
           exact
         />
       </q-tabs>
-      <q-btn-dropdown auto-close stretch flat :icon="fasUser" label="User">
-        <q-list>
-          <q-item clickable to="/login">
-            <q-item-section>Login</q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
+
+      <q-tabs
+        shrink
+        class="text-black text-subtitle1"
+        active-color="primary"
+        inline-label
+      >
+        <q-btn-dropdown
+          auto-close
+          class="text-black"
+          flat
+          :icon="fasUser"
+          label="User"
+        >
+          <q-list>
+            <q-item clickable to="/login">
+              <q-item-section>Login</q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+      </q-tabs>
     </q-toolbar>
   </q-header>
 </template>
