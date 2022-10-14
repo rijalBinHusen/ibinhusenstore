@@ -1,12 +1,22 @@
 <template>
-  <MainLayout />
+  <div class="bg-grey-1" style="max-width: 1366px; margin: 0 auto">
+    <AdminLayout v-if="isRoleAdmin" />
+    <MainLayout v-else />
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import MainLayout from '../src/layouts/MainLayout.vue'
+import { defineComponent, computed } from 'vue';
+import { role } from './composable/userSignin';
+import MainLayout from '../src/layouts/MainLayout.vue';
+import AdminLayout from '../src/layouts/AdminLayout.vue';
 
 export default defineComponent({
-  components: { MainLayout },
+  components: { MainLayout, AdminLayout },
   name: 'App',
+  setup() {
+    const isRoleAdmin = computed(() => role.value === 'admin');
+
+    return { isRoleAdmin };
+  },
 });
 </script>
