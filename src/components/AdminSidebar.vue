@@ -49,7 +49,7 @@ const menuLists = [
     icon: fasMoneyCheck,
     label: 'Metode pembayaran',
     separator: true,
-    route: '/products'
+    route: '/admin/1111/payment'
   },
 ];
 </script>

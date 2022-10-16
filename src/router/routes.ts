@@ -66,6 +66,11 @@ const routes: RouteRecordRaw[] = [
         path: 'orders',
         component: () => import('components/AdminOrders.vue'),
       },
+      // admin payment methods
+      {
+        path: 'payment',
+        component: () => import('components/AdminPaymentMethods.vue'),
+      },
     ],
   },
   // Always leave this as last one,
