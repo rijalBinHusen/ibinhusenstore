@@ -2,7 +2,13 @@
   <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
     <q-list>
       <template v-for="(menuItem, index) in menuLists" :key="index">
-        <q-item clickable @click="activeMenu = menuItem.label" :active="menuItem.label === activeMenu" v-ripple :to="menuItem.route" >
+        <q-item 
+          clickable 
+          @click="activeMenu = menuItem.label" 
+          :active="menuItem.label === activeMenu" 
+          v-ripple 
+          :to="menuItem.route" 
+        >
           <q-item-section avatar>
             <q-icon :name="menuItem.icon"></q-icon>
           </q-item-section>
@@ -12,7 +18,7 @@
         </q-item>
         <q-separator
           :key="'sep' + index"
-          v-if="menuItem.separator"
+          v-if="menuItem.separator"  
         ></q-separator>
       </template>
     </q-list>

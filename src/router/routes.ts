@@ -50,9 +50,15 @@ const routes: RouteRecordRaw[] = [
     path: '/admin',
     component: () => import('pages/Admin.vue'),
   },
+  // Admin products
   {
     path: '/products',
     component: () => import('pages/AdminProducts.vue'),
+  },
+  // admin product create
+  {
+    path: '/product-create',
+    component: () => import('pages/AdminProductCreate.vue'),
   },
 
   // Always leave this as last one,

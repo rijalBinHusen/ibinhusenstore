@@ -4,7 +4,7 @@
     <div class="q-pa-md row q-gutter-sm ">
         <q-input class="col-7" outlined v-model="produk" label="Cari produk"></q-input>
         <q-btn class="col-1" color="primary" icon="search"></q-btn>
-        <q-btn class="col-2" color="primary" label="Buat produk baru"></q-btn>
+        <q-btn class="col-2" color="primary" label="Buat produk baru" to="product-create"></q-btn>
     </div>
     <!-- Search produk -->
     <q-page class="row justify-between">

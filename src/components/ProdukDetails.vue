@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <div class="row justify-center" style="margin-top: 20px; height: 400px">
-      <div class="column col-md-4">
+      <div class="column col-md">
         <q-carousel swipeable animated v-model="slide" thumbnails infinite>
           <q-carousel-slide :name="1" img-src="../assets/cookies8.jpg" />
           <q-carousel-slide :name="2" img-src="../assets/cookies1.jpg" />
@@ -9,7 +9,7 @@
           <q-carousel-slide :name="4" img-src="../assets/cookies3.jpg" />
         </q-carousel>
       </div>
-      <div class="col-md-5 items-end offset-md-1">
+      <div class="col-md items-end offset-md-1">
         <div class="column" style="height: 350px">
           <span class="col-1 text-h5 text-weight-bold">
             {{ produkInfo?.name }}
