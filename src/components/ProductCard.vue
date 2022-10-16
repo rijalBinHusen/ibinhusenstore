@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import Product from '../types/Product'
+import { ProductTypes } from '../types/Product'
 import { defineComponent, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -31,7 +31,7 @@ export default defineComponent({
     props: {
       product: {
         required: true,
-        type: Object as PropType<Product>
+        type: Object as PropType<ProductTypes>
       }
     },
 })

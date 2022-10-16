@@ -1,9 +1,9 @@
-import Product from './Product';
+import { ProductTypes } from './Product';
 
 interface categories {
   id: string;
   name: string;
-  products: Product[];
+  products: ProductTypes[];
 }
 
 export default categories;
