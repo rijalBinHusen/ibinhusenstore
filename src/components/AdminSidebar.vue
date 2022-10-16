@@ -37,13 +37,13 @@ const menuLists = [
     icon: fasBox,
     label: 'Products',
     separator: true,
-    route: '/products'
+    route: '/admin/111/products'
   },
   {
     icon: fasCashRegister,
     label: 'Orders',
     separator: true,
-    route: '/products'
+    route: '/admin/111/orders'
   },
   {
     icon: fasMoneyCheck,

@@ -47,20 +47,27 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
-    path: '/admin',
-    component: () => import('pages/Admin.vue'),
+    path: '/admin/:idAdmin',
+    children: [
+      { path: '', component: () => import('pages/Admin.vue') },
+      // Admin products
+      {
+        path: 'products',
+        component: () => import('components/AdminProducts.vue'),
+        name: 'products',
+      },
+      // admin product create
+      {
+        path: 'product-create',
+        component: () => import('components/AdminProductCreate.vue'),
+      },
+      // admin orders
+      {
+        path: 'orders',
+        component: () => import('components/AdminOrders.vue'),
+      },
+    ],
   },
-  // Admin products
-  {
-    path: '/products',
-    component: () => import('pages/AdminProducts.vue'),
-  },
-  // admin product create
-  {
-    path: '/product-create',
-    component: () => import('pages/AdminProductCreate.vue'),
-  },
-
   // Always leave this as last one,
   // but you can also remove it
   {
