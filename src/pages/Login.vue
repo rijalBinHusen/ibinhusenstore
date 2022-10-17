@@ -83,6 +83,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import signup from '../composable/userRegister';
+import signin from '../composable/userSignin';
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
@@ -120,7 +121,7 @@ const handleSubmit = async () => {
     await signup({ email: email.value, password: password.value });
     window.location.reload();
   } else {
-    return;
+    await signin({ email: email.value, password: password.value });
   }
 };
 </script>
