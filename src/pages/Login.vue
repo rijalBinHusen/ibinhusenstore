@@ -15,6 +15,7 @@
             filled
             type="email"
             label="Email"
+            required
           />
 
           <!-- Password -->
@@ -24,6 +25,7 @@
             :type="isPwd ? 'password' : 'text'"
             label="Password"
             class="q-mt-lg"
+            required
           >
             <template v-slot:append>
               <q-icon
@@ -43,6 +45,7 @@
             label="Confirm password"
             class="q-mt-lg"
             v-if="!isLogin"
+            required
           >
             <template v-slot:append>
               <q-icon
@@ -59,6 +62,7 @@
             v-if="isLogin || (!isLogin && password == passwordConfirm)"
             color="primary q-my-md"
             :label="isLogin ? 'Login' : 'Register'"
+            @click="handleSubmit"
           />
 
           <!-- if register and password and password confirm not match -->
@@ -69,31 +73,7 @@
             Password tidak cocok
           </p>
 
-          <!-- Button to register form -->
-          <p v-if="isLogin" class="text-weight-regular">
-            Belum punya akun? klick
-            <a
-              style="cursor: pointer; text-decoration: underline"
-              @click="isLogin = false"
-            >
-              disini
-            </a>
-            untuk register
-          </p>
-          <!-- Button to register form -->
-
-          <!-- Button to login form -->
-          <p v-else class="text-weight-regular">
-            Sudah punya akun? klick
-            <a
-              style="cursor: pointer; text-decoration: underline"
-              @click="isLogin = true"
-            >
-              disini
-            </a>
-            untuk login
-          </p>
-          <!-- Button to login form -->
+          <div @click="toggle" v-html="formToggle"></div>
         </q-card-section>
       </q-card>
     </div>
@@ -101,10 +81,46 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import signup from '../composable/userRegister';
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
 const isPwd = ref(true);
 const isLogin = ref(true);
+
+const toggle = () => {
+  isLogin.value = !isLogin.value;
+};
+
+const formToggle = computed(() => {
+  return isLogin.value
+    ? `<p class="text-weight-regular">
+      Belum punya akun? klick
+        <a
+          style="cursor: pointer; text-decoration: underline"
+        >
+          disini
+        </a>
+        untuk register
+      </p>`
+    : `<p class="text-weight-regular">
+        Sudah punya akun? klick
+        <a
+          style="cursor: pointer; text-decoration: underline"
+        >
+          disini
+        </a>
+        untuk login
+      </p>`;
+});
+
+const handleSubmit = async () => {
+  if (!isLogin.value) {
+    await signup({ email: email.value, password: password.value });
+    window.location.reload();
+  } else {
+    return;
+  }
+};
 </script>
