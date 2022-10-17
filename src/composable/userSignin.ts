@@ -8,12 +8,15 @@ interface user {
   password: string;
 }
 
-export const role = ref('admin');
+export const isPending = ref(false);
+
+export const role = ref('');
 
 export const user = ref({});
 
-const signin = async (payload: user) => {
+export const signin = async (payload: user) => {
   try {
+    isPending.value = true;
     const res = await signInWithEmailAndPassword(
       firebaseAuth,
       payload.email,
@@ -23,10 +26,11 @@ const signin = async (payload: user) => {
       throw new Error('Could not complete the signup');
     }
     user.value = res.user;
-    console.log(user.value);
+    if (res.user.uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
+      role.value = 'admin';
+    }
   } catch (err) {
     alert(err);
   }
+  isPending.value = false;
 };
-
-export default signin;

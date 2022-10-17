@@ -4,78 +4,80 @@
     style="margin: 20px 0 0 auto; max-width: 1366px"
   >
     <div class="col-3">
-      <q-card class="my-card">
-        <h3 class="q-pa-md text-center text-weight-light">
-          {{ isLogin ? 'Login' : 'Register' }}
-        </h3>
-        <q-card-section>
-          <q-input
-            v-model="email"
-            class="q-mb-lg"
-            filled
-            type="email"
-            label="Email"
-            required
-          />
+      <form v-if="!isPending" @submit.prevent="handleSubmit">
+        <q-card class="my-card">
+          <h3 class="q-pa-md text-center text-weight-light">
+            {{ isLogin ? 'Login' : 'Register' }}
+          </h3>
+          <q-card-section>
+            <q-input
+              v-model="email"
+              class="q-mb-lg"
+              filled
+              type="email"
+              label="Email"
+              required
+            />
 
-          <!-- Password -->
-          <q-input
-            v-model="password"
-            filled
-            :type="isPwd ? 'password' : 'text'"
-            label="Password"
-            class="q-mt-lg"
-            required
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
-          <!-- End of Password -->
+            <!-- Password -->
+            <q-input
+              v-model="password"
+              filled
+              :type="isPwd ? 'password' : 'text'"
+              label="Password"
+              class="q-mt-lg"
+              required
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+            <!-- End of Password -->
 
-          <!-- Confirm Password -->
-          <q-input
-            v-model="passwordConfirm"
-            filled
-            :type="isPwd ? 'password' : 'text'"
-            label="Confirm password"
-            class="q-mt-lg"
-            v-if="!isLogin"
-            required
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
-          <!-- End of Confirm Password -->
+            <!-- Confirm Password -->
+            <q-input
+              v-model="passwordConfirm"
+              filled
+              :type="isPwd ? 'password' : 'text'"
+              label="Confirm password"
+              class="q-mt-lg"
+              v-if="!isLogin"
+              required
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+            <!-- End of Confirm Password -->
 
-          <!-- Submit button -->
-          <q-btn
-            v-if="isLogin || (!isLogin && password == passwordConfirm)"
-            color="primary q-my-md"
-            :label="isLogin ? 'Login' : 'Register'"
-            @click="handleSubmit"
-          />
+            <!-- Submit button -->
+            <q-btn
+              v-if="isLogin || (!isLogin && password == passwordConfirm)"
+              color="primary q-my-md"
+              :label="isLogin ? 'Login' : 'Register'"
+              @click="handleSubmit"
+            />
 
-          <!-- if register and password and password confirm not match -->
-          <p
-            v-if="!isLogin && password != passwordConfirm"
-            class="fuchsia q-my-md"
-          >
-            Password tidak cocok
-          </p>
+            <!-- if register and password and password confirm not match -->
+            <p
+              v-if="!isLogin && password != passwordConfirm"
+              class="fuchsia q-my-md"
+            >
+              Password tidak cocok
+            </p>
 
-          <div @click="toggle" v-html="formToggle"></div>
-        </q-card-section>
-      </q-card>
+            <div @click="toggle" v-html="formToggle"></div>
+          </q-card-section>
+        </q-card>
+      </form>
     </div>
   </div>
 </template>
@@ -83,7 +85,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import signup from '../composable/userRegister';
-import signin from '../composable/userSignin';
+import { signin, isPending } from '../composable/userSignin';
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
@@ -123,5 +125,8 @@ const handleSubmit = async () => {
   } else {
     await signin({ email: email.value, password: password.value });
   }
+  email.value = '';
+  password.value = '';
+  passwordConfirm.value = '';
 };
 </script>
