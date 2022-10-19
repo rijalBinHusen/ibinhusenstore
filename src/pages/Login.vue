@@ -84,6 +84,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import signup from '../composable/userRegister';
 import { signin, isPending } from '../composable/userSignin';
 const email = ref('');
@@ -91,6 +92,7 @@ const password = ref('');
 const passwordConfirm = ref('');
 const isPwd = ref(true);
 const isLogin = ref(true);
+const router = useRouter();
 
 const toggle = () => {
   isLogin.value = !isLogin.value;
@@ -123,7 +125,10 @@ const handleSubmit = async () => {
     await signup({ email: email.value, password: password.value });
     window.location.reload();
   } else {
-    await signin({ email: email.value, password: password.value });
+    let result = await signin({ email: email.value, password: password.value });
+    if (result) {
+      await router.push('/admin/' + result.user.uid + '/products');
+    }
   }
   email.value = '';
   password.value = '';

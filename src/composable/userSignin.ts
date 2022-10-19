@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
 import { firebaseAuth } from 'src/firebase/firebaseApp';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, User } from 'firebase/auth';
 
 interface user {
   email: string;
@@ -12,7 +12,7 @@ export const isPending = ref(false);
 
 export const role = ref('');
 
-export const user = ref({});
+export const user = ref<User>();
 
 export const signin = async (payload: user) => {
   try {
@@ -29,6 +29,7 @@ export const signin = async (payload: user) => {
     if (res.user.uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
       role.value = 'admin';
     }
+    return res;
   } catch (err) {
     alert(err);
   }

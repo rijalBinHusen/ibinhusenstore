@@ -1,4 +1,22 @@
-import { RouteRecordRaw } from 'vue-router';
+import {
+  RouteRecordRaw,
+  RouteLocationRaw,
+  NavigationGuardNext,
+} from 'vue-router';
+import { firebaseAuth } from '../firebase/firebaseApp';
+
+const requireAuth = (
+  to: RouteLocationRaw,
+  from: RouteLocationRaw,
+  next: NavigationGuardNext
+) => {
+  const user = firebaseAuth.currentUser;
+  if (!user) {
+    next('/login');
+  } else {
+    next();
+  }
+};
 
 const routes: RouteRecordRaw[] = [
   {
@@ -48,6 +66,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/admin/:idAdmin',
+    // beforeEnter: requireAuth('/admin', '', ''),
     children: [
       { path: '', component: () => import('pages/Admin.vue') },
       // Admin products
@@ -72,6 +91,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('components/AdminPaymentMethods.vue'),
       },
     ],
+    beforeEnter: requireAuth,
   },
   // Always leave this as last one,
   // but you can also remove it
