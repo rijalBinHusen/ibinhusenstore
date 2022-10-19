@@ -83,10 +83,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import signup from '../composable/userRegister';
-import { signin, isPending } from '../composable/userSignin';
+import { signin, isPending, user } from '../composable/userSignin';
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
@@ -118,6 +118,12 @@ const formToggle = computed(() => {
         </a>
         untuk login
       </p>`;
+});
+
+onMounted(async () => {
+  if (user?.value?.uid) {
+    await router.push('/');
+  }
 });
 
 const handleSubmit = async () => {

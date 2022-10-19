@@ -29,9 +29,22 @@ export const signin = async (payload: user) => {
     if (res.user.uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
       role.value = 'admin';
     }
+    sessionStorage.setItem('userLoggedInApp', JSON.stringify(user.value));
     return res;
   } catch (err) {
     alert(err);
   }
   isPending.value = false;
+};
+
+export const getUserFromSession = () => {
+  // console.log(window.sessionStorage.getItem('user'));
+  const getUser: string | null = sessionStorage.getItem('userLoggedInApp');
+  if (getUser) {
+    // console.log(getUser);
+    /*eslint no-unsafe-negation: "error"*/
+
+    const extracted = JSON.parse(getUser) as User;
+    user.value = extracted;
+  }
 };

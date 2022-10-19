@@ -5,8 +5,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { role } from './composable/userSignin';
+import { defineComponent, computed, onBeforeMount } from 'vue';
+import { role, getUserFromSession } from './composable/userSignin';
 import MainLayout from '../src/layouts/MainLayout.vue';
 import AdminLayout from '../src/layouts/AdminLayout.vue';
 
@@ -16,6 +16,9 @@ export default defineComponent({
   setup() {
     const isRoleAdmin = computed(() => role.value === 'admin');
 
+    onBeforeMount(() => {
+      getUserFromSession();
+    });
     return { isRoleAdmin };
   },
 });
