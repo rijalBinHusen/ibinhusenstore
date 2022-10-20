@@ -25,10 +25,8 @@ export const signin = async (payload: user) => {
     if (!res) {
       throw new Error('Could not complete the signup');
     }
+    setRole(res.user.uid);
     user.value = res.user;
-    if (res.user.uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
-      role.value = 'admin';
-    }
     sessionStorage.setItem('userLoggedInApp', JSON.stringify(user.value));
     return res;
   } catch (err) {
@@ -46,5 +44,12 @@ export const getUserFromSession = () => {
 
     const extracted = JSON.parse(getUser) as User;
     user.value = extracted;
+    setRole(extracted.uid);
+  }
+};
+
+const setRole = (uid: string) => {
+  if (uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
+    role.value = 'admin';
   }
 };
