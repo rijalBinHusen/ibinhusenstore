@@ -1,7 +1,7 @@
 import { ref } from 'vue';
-
 import { firebaseAuth } from 'src/firebase/firebaseApp';
 import { signInWithEmailAndPassword, User } from 'firebase/auth';
+import { getAdminUID, adminUID, adminTypes } from './admin';
 
 interface user {
   email: string;
@@ -16,6 +16,7 @@ export const user = ref<User>();
 
 export const signin = async (payload: user) => {
   try {
+    await getAdminUID();
     isPending.value = true;
     const res = await signInWithEmailAndPassword(
       firebaseAuth,
@@ -49,7 +50,8 @@ export const getUserFromSession = () => {
 };
 
 const setRole = (uid: string) => {
-  if (uid === 'L2JMxk9qOZTF2eB344MoBo1lNtf1') {
+  const findAdmin = adminUID.value.some((rec: adminTypes) => rec.UID === uid);
+  if (findAdmin) {
     role.value = 'admin';
   }
 };
