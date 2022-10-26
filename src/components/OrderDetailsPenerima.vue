@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-input v-model="orderDetailsInfo.namaPenerima" label="Nama penerima" />
-    <q-input v-model="orderDetailsInfo.nomorWhatsapp" label="Nomor whatsApp" />
+    <q-input v-model="orderDetailsInfo.nomorWhatsApp" label="Nomor whatsApp" />
     <q-input
       v-model="dikirim"
       mask="date"
@@ -37,7 +37,11 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { orderDetailsInfo, isPenerimaComplete } from '../composable/orders';
+import {
+  orderDetailsInfo,
+  isPenerimaComplete,
+  orders,
+} from '../composable/orders';
 
 export default defineComponent({
   setup() {
@@ -56,13 +60,13 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      if (!orderDetailsInfo.value.dikirim) {
+      if (!orders.value.dikirim) {
         dikirim.value = minimalDate;
       }
     });
 
     watch([dikirim], (newVal) => {
-      orderDetailsInfo.value.dikirim = newVal[0];
+      orders.value.dikirim = newVal[0];
     });
 
     return { orderDetailsInfo, minDate, dikirim, orderId, isPenerimaComplete };

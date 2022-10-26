@@ -26,7 +26,7 @@
     </q-select>
 
     <q-input v-model="orderDetailsInfo.kecamatan" label="Kecamatan" />
-    <q-input v-model="orderDetailsInfo.kodePos" label="Kode pos" />
+    <q-input v-model="orderDetailsInfo.kodepos" label="Kode pos" />
     <q-input v-model="orderDetailsInfo.alamatLengkap" label="Alamat lengkap" />
     <div v-if="isAlamatComplete()" class="row">
       <q-btn

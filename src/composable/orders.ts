@@ -1,33 +1,19 @@
-import orderDetailsInfoTypes from 'src/types/orderDetailsInfo';
+import { OrderDetailsTypes, OrdersTypes } from 'src/types/Order';
 import { ref } from 'vue';
 
-export const orderDetailsInfo = ref<orderDetailsInfoTypes>({
-  judulPesanan: '',
-  namaPemesan: '',
-  metodePembayaran: '',
-  namaPenerima: '',
-  nomorWhatsapp: '',
-  dikirim: '',
-  provinsi: '',
-  kabupaten: '',
-  kecamatan: '',
-  kodePos: 0,
-  alamatLengkap: '',
-});
+export const orders = ref({} as OrdersTypes);
+
+export const orderDetailsInfo = ref({} as OrderDetailsTypes);
 
 export const isPemesanComplete = () => {
-  return (
-    orderDetailsInfo.value.judulPesanan &&
-    orderDetailsInfo.value.judulPesanan &&
-    orderDetailsInfo.value.metodePembayaran
-  );
+  return orders.value.judul && orderDetailsInfo.value.metodePembayaran;
 };
 
 export const isPenerimaComplete = () => {
   return (
     orderDetailsInfo.value.namaPenerima &&
-    orderDetailsInfo.value.nomorWhatsapp &&
-    orderDetailsInfo.value.dikirim
+    orderDetailsInfo.value.nomorWhatsApp &&
+    orders.value.dikirim
   );
 };
 
@@ -36,7 +22,7 @@ export const isAlamatComplete = () => {
     orderDetailsInfo.value.provinsi &&
     orderDetailsInfo.value.kabupaten &&
     orderDetailsInfo.value.kecamatan &&
-    orderDetailsInfo.value.kodePos &&
+    orderDetailsInfo.value.kodepos &&
     orderDetailsInfo.value.alamatLengkap
   );
 };
