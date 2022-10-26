@@ -46,6 +46,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { ProductTypes } from '../types/Product';
+// import uploadFile from '../firebase/Storages/upload';
 
 const product = ref({} as ProductTypes);
 const category = ref('' as string);
@@ -55,6 +56,11 @@ const addCategory = () => {
     product.value.category.push(category.value);
   }
   category.value = '';
+};
+
+const uploadImage = async (file: File) => {
+  //   const {} = await uploadFile(file, 'products/')
+  console.log(file);
 };
 const description = ref('Tulis deskripsi produk');
 </script>
