@@ -52,10 +52,14 @@
           class="text-black"
           flat
           :icon="fasUser"
-          label="User"
+          :label="user?.displayName || 'User'"
         >
           <q-list>
-            <q-item clickable to="/login">
+            <q-item v-if="role" clickable to="/login">
+              <q-item-section @click="signOut">Logout</q-item-section>
+            </q-item>
+
+            <q-item v-else clickable to="/login">
               <q-item-section>Login</q-item-section>
             </q-item>
           </q-list>
@@ -65,7 +69,7 @@
   </q-header>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   fasCartArrowDown,
   fasHouseUser,
@@ -73,30 +77,24 @@ import {
   fasSearch,
   fasUser,
 } from '@quasar/extras/fontawesome-v5';
-import { role } from 'src/composable/userSignin';
+import { role, user } from 'src/composable/userSignin';
 import { toggleLeftDrawer } from 'src/composable/admin';
-import { defineComponent, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import useSignout from '../composable/userSignOut';
 
-export default defineComponent({
-  name: 'Navbar',
+const router = useRouter();
+let links = ref([
+  { name: 'Home', path: '/', icon: fasHouseUser },
+  { name: 'Cari barang', path: '/', icon: fasSearch },
+  { name: 'Keranjang', path: '/keranjang', icon: fasCartArrowDown },
+  { name: 'Testimonial', path: '/', icon: fasNewspaper },
+]);
+const { signOut } = useSignout();
 
-  setup() {
-    const router = useRouter();
-    let links = ref([
-      { name: 'Home', path: '/', icon: fasHouseUser },
-      { name: 'Cari barang', path: '/', icon: fasSearch },
-      { name: 'Keranjang', path: '/keranjang', icon: fasCartArrowDown },
-      { name: 'Testimonial', path: '/', icon: fasNewspaper },
-    ]);
+const isRoleAdmin = computed(() => role.value === 'admin');
 
-    const isRoleAdmin = computed(() => role.value === 'admin');
-
-    const redirect = async () => {
-      await router.push({ path: '/' });
-    };
-
-    return { links, redirect, fasUser, isRoleAdmin, toggleLeftDrawer };
-  },
-});
+const redirect = async () => {
+  await router.push({ path: '/' });
+};
 </script>

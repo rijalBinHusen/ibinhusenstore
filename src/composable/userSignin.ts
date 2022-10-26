@@ -36,7 +36,8 @@ export const signin = async (payload: user) => {
   isPending.value = false;
 };
 
-export const getUserFromSession = () => {
+export const getUserFromSession = async () => {
+  await getAdminUID();
   // console.log(window.sessionStorage.getItem('user'));
   const getUser: string | null = sessionStorage.getItem('userLoggedInApp');
   if (getUser) {
@@ -53,5 +54,7 @@ const setRole = (uid: string) => {
   const findAdmin = adminUID.value.some((rec: adminTypes) => rec.UID === uid);
   if (findAdmin) {
     role.value = 'admin';
+    return;
   }
+  role.value = 'user';
 };
