@@ -1,6 +1,7 @@
 <template>
   <q-card style="width: 200px" class="my-card">
     <q-img v-if="imageUrl" :src="imageUrl"> </q-img>
+    <div v-else class="text-h6 q-pa-md">Gambar produk</div>
 
     <q-card-actions>
       <!-- Delete action -->
@@ -40,6 +41,7 @@
               tabindex="-1"
               type="file"
               title=""
+              ref="inputFile"
               @change="uploadImage($event.target.files[0])" /></span
         ></a>
       </q-btn>
@@ -58,6 +60,8 @@ const props = defineProps({
   },
 });
 
+const inputFile = ref<HTMLInputElement>();
+
 const imageUrl = ref(props.imgsrc);
 
 const emit = defineEmits(['imageUrl', 'removedImage']);
@@ -70,9 +74,8 @@ const uploadImage = async (file: File) => {
       new Date().getTime().toString()
     );
 
-    imageUrl.value = downloadURL.value;
-
     emit('imageUrl', downloadURL.value);
+    inputFile.value = undefined;
   }
 };
 

@@ -43,32 +43,38 @@
       <q-editor v-model="description" min-height="5rem"> </q-editor>
     </div>
     <!-- Image uploader -->
-    <image-uploader-vue
-      imgsrc="https://firebasestorage.googleapis.com/v0/b/catatansaya-b7f41.appspot.com/o/products%2F1666829885176?alt=media&token=53f85e75-450f-4fb5-aaad-6a11d70ee389"
-    />
-
-    <image-uploader-vue
-      @image-url="handleImage($event)"
-      @removed-image="handleImage"
-    />
+    <div class="row q-gutter-sm">
+      <image-uploader-vue
+        v-for="img in newProductState.images"
+        :key="img"
+        :imgsrc="img"
+      >
+        {{ img }}
+      </image-uploader-vue>
+      <image-uploader-vue
+        @image-url="handleImage($event)"
+        @removed-image="handleImage"
+      />
+    </div>
     <!-- Image uploader -->
 
     <!-- Button submit -->
     <div class="row q-mt-md">
-      <q-btn
-        @click="createNewProduct"
-        color="primary"
-        label="Buat produk"
-      ></q-btn>
+      <q-btn @click="handleSubmit" color="primary" label="Buat produk"></q-btn>
     </div>
     <!-- Button sumbit -->
   </q-page>
 </template>
 
 <script lang="ts" setup>
+import { useQuasar } from 'quasar';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { newProductState, createNewProduct } from '../composable/products';
 import ImageUploaderVue from './ImageUploader.vue';
+
+const $q = useQuasar();
+const router = useRouter();
 
 // category model form
 const category = ref<string>('');
@@ -97,4 +103,14 @@ const handleImage = (downloadURL: string) => {
 };
 // description reference
 const description = ref<string>('Tulis deskripsi produk');
+
+const handleSubmit = async () => {
+  await createNewProduct(newProductState.value, description.value);
+  $q.notify({
+    message: 'Produk baru berhasil dimasukkan',
+    color: 'primary',
+    timeout: 500,
+  });
+  await router.push('/');
+};
 </script>
