@@ -16,8 +16,8 @@ export default defineComponent({
   setup() {
     const isRoleAdmin = computed(() => role.value === 'admin');
 
-    onBeforeMount(() => {
-      getUserFromSession();
+    onBeforeMount(async () => {
+      await getUserFromSession();
     });
     return { isRoleAdmin };
   },

@@ -1,9 +1,22 @@
 import { OrderDetailsTypes, OrdersTypes } from 'src/types/Order';
 import { ref } from 'vue';
 
-export const orders = ref({} as OrdersTypes);
+export const orders = ref(<OrdersTypes>{
+  judul: '',
+  namaPemesan: '',
+  dikirim: '',
+});
 
-export const orderDetailsInfo = ref({} as OrderDetailsTypes);
+export const orderDetailsInfo = ref(<OrderDetailsTypes>{
+  metodePembayaran: '',
+  namaPenerima: '',
+  nomorWhatsApp: '',
+  provinsi: '',
+  kabupaten: '',
+  kecamatan: '',
+  kodepos: 0,
+  alamatLengkap: '',
+});
 
 export const isPemesanComplete = () => {
   return orders.value.judul && orderDetailsInfo.value.metodePembayaran;

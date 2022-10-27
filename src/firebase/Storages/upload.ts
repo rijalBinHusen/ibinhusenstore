@@ -4,17 +4,17 @@ import { firebaseStorage } from '../firebaseApp';
 
 const uploadFile = async (file: File, fileName: string) => {
   const downloadURL = vueRef('');
-  const error = vueRef<any>();
-  const storageRef = ref(firebaseStorage, 'myreport/' + fileName);
+  // const error = vueRef<any>();
+  const storageRef = ref(firebaseStorage, 'products/' + fileName);
   try {
     const res = await uploadBytes(storageRef, file);
     downloadURL.value = await getDownloadURL(res.ref);
   } catch (err) {
     console.log(err);
-    error.value = err;
+    // error.value = err;
   }
 
-  return { downloadURL, error };
+  return { downloadURL };
 };
 
 export default uploadFile;
