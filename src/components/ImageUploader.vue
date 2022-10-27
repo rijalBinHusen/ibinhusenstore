@@ -4,7 +4,7 @@
 
     <q-card-actions>
       <!-- Delete action -->
-      <q-btn v-if="imageUrl" flat>
+      <q-btn @click="removeImage" v-if="imageUrl" flat>
         <a
           class="q-btn-item non-selectable no-outline text-pink q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--dense"
           tabindex="0"
@@ -50,6 +50,7 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, ref } from 'vue';
 import uploadFile from 'src/firebase/Storages/upload';
+import { removeFile } from 'src/firebase/Storages/remove';
 
 const props = defineProps({
   imgsrc: {
@@ -59,7 +60,7 @@ const props = defineProps({
 
 const imageUrl = ref(props.imgsrc);
 
-const emit = defineEmits(['imageUrl']);
+const emit = defineEmits(['imageUrl', 'removedImage']);
 
 const uploadImage = async (file: File) => {
   if (file) {
@@ -71,9 +72,15 @@ const uploadImage = async (file: File) => {
 
     imageUrl.value = downloadURL.value;
 
-    console.log(imageUrl.value);
-
     emit('imageUrl', downloadURL.value);
+  }
+};
+
+const removeImage = async () => {
+  if (imageUrl.value) {
+    await removeFile(imageUrl.value);
+    imageUrl.value = '';
+    emit('removedImage');
   }
 };
 </script>

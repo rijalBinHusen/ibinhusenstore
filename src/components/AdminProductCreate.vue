@@ -47,7 +47,10 @@
       imgsrc="https://firebasestorage.googleapis.com/v0/b/catatansaya-b7f41.appspot.com/o/products%2F1666829885176?alt=media&token=53f85e75-450f-4fb5-aaad-6a11d70ee389"
     />
 
-    <image-uploader-vue @image-url="addImage($event)" />
+    <image-uploader-vue
+      @image-url="handleImage($event)"
+      @removed-image="handleImage"
+    />
     <!-- Image uploader -->
 
     <!-- Button submit -->
@@ -82,9 +85,15 @@ const handleCategory = (e: string) => {
   category.value = '';
 };
 // add image
-const addImage = (downloadURL: string) => {
-  // upload file and wait the download url
-  newProductState.value.images.push(downloadURL);
+const handleImage = (downloadURL: string) => {
+  if (downloadURL) {
+    // upload file and wait the download url
+    newProductState.value.images.push(downloadURL);
+  } else {
+    newProductState.value.images = newProductState.value.images.filter(
+      (img) => img !== downloadURL
+    );
+  }
 };
 // description reference
 const description = ref<string>('Tulis deskripsi produk');
