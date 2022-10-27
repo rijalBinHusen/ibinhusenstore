@@ -1,44 +1,59 @@
 <template>
   <div class="q-pa-md items-start col-3">
     <!-- <router-link to="/produk"> -->
-      <q-card @click='handleClick' class="my-card cursor-pointer">
-        <!-- <img :src="imgUrl(product?.img)" /> -->
-        <q-img src="../assets/cookies7.jpg" :ratio="16/9"/>
-        <q-card-section>
-          <div class="text-weight-medium text-caption">{{ product.name }}</div>
-          <div class="text-subtitle2 text-weight-regular">RP{{ product.price }}</div>
-        </q-card-section>
-      </q-card>
+    <q-card @click="handleClick" class="my-card cursor-pointer">
+      <!-- <img :src="imgUrl(product?.img)" /> -->
+      <q-img :src="produkImages" :ratio="16 / 9" />
+      <q-card-section>
+        <div class="text-weight-medium text-caption">{{ product.name }}</div>
+        <div class="text-subtitle2 text-weight-regular">
+          RP{{ product.price }}
+        </div>
+      </q-card-section>
+    </q-card>
     <!-- </router-link> -->
   </div>
 </template>
 
-<script lang="ts">
-import { ProductTypes } from '../types/Product'
-import { defineComponent, PropType } from 'vue'
-import { useRouter } from 'vue-router'
+<script lang="ts" setup>
+import { ProductTypes } from '../types/Product';
+import { PropType, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { isArray } from '@vue/shared';
 
-export default defineComponent({
-  setup() {
-    const router = useRouter()
+const router = useRouter();
+const route = useRoute();
 
-    const handleClick = async () => {
-      await router.push({ path: '/produk'})
-    }
+const handleClick = async () => {
+  if (isPageAdmin.value) {
+    await router.push(`/admin/product-edit/${props.product.id}`);
+    return;
+  }
+  await router.push({ path: '/produk' });
+};
 
-    return { handleClick }
+const produkImages = computed(() => {
+  if (isArray(props.product.images)) {
+    return props.product.images[0];
+  }
+
+  return props.product.images;
+});
+
+const isPageAdmin = computed(() => {
+  return route.fullPath.indexOf('admin') > -1;
+});
+
+const props = defineProps({
+  product: {
+    required: true,
+    type: Object as PropType<ProductTypes>,
   },
-    props: {
-      product: {
-        required: true,
-        type: Object as PropType<ProductTypes>
-      }
-    },
-})
+});
 </script>
 
 <style lang="scss" scoped>
-  .my-card:hover {
-    box-shadow: 0 1px 5px $grey-10;
-  }
+.my-card:hover {
+  box-shadow: 0 1px 5px $grey-10;
+}
 </style>

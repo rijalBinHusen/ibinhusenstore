@@ -68,13 +68,18 @@
 
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { newProductState, createNewProduct } from '../composable/products';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import {
+  newProductState,
+  createNewProduct,
+  getProductById,
+} from '../composable/products';
 import ImageUploaderVue from './ImageUploader.vue';
 
 const $q = useQuasar();
 const router = useRouter();
+const route = useRoute();
 
 // category model form
 const category = ref<string>('');
@@ -113,4 +118,15 @@ const handleSubmit = async () => {
   });
   await router.push('/');
 };
+
+onMounted(async () => {
+  if (isEditMode.value) {
+    await getProductById(route.params.idProduct as string);
+  }
+  console.log(newProductState.value);
+});
+
+const isEditMode = computed(() => {
+  return Boolean(route.params.idProduct);
+});
 </script>

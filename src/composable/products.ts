@@ -1,6 +1,9 @@
 import { ProductTypes, ProductDescriptionTypes } from 'src/types/Product';
 import { ref } from 'vue';
-import { getDocumentsAndLimit } from 'src/firebase/Documents/getDocuments';
+import {
+  getDocumentsAndLimit,
+  getDocumentById,
+} from 'src/firebase/Documents/getDocuments';
 import {
   addDocument,
   writeDocument,
@@ -10,6 +13,7 @@ import { DocumentSnapshot } from 'firebase/firestore';
 export const lists = ref<ProductTypes[]>([]);
 
 export const renewProduct = async () => {
+  lists.value.length = 0;
   const res = await getDocumentsAndLimit('products', 10);
   if (res) {
     res.forEach((doc: DocumentSnapshot) => {
@@ -37,4 +41,11 @@ export const createNewProduct = async (
   const product = await addDocument('products', productProperty);
   const descriptionProduct = <ProductDescriptionTypes>{ description };
   await writeDocument('description', product.id, descriptionProduct);
+};
+
+export const getProductById = async (idProduct: string) => {
+  const res = await getDocumentById('products', idProduct);
+  if (res) {
+    newProductState.value = res as ProductTypes;
+  }
 };

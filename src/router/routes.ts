@@ -1,22 +1,5 @@
-import {
-  RouteRecordRaw,
-  RouteLocationRaw,
-  NavigationGuardNext,
-} from 'vue-router';
-import { firebaseAuth } from '../firebase/firebaseApp';
-
-const requiredAdmin = (
-  to: RouteLocationRaw,
-  from: RouteLocationRaw,
-  next: NavigationGuardNext
-) => {
-  const user = firebaseAuth.currentUser;
-  if (!user) {
-    next('/login');
-  } else {
-    next();
-  }
-};
+import { RouteRecordRaw } from 'vue-router';
+import admin from './admin';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -63,35 +46,6 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     component: () => import('pages/Login.vue'),
   },
-
-  {
-    path: '/admin/:idAdmin',
-    children: [
-      { path: '', component: () => import('pages/Admin.vue') },
-      // Admin products
-      {
-        path: 'products',
-        component: () => import('components/AdminProducts.vue'),
-        name: 'products',
-      },
-      // admin product create
-      {
-        path: 'product-create',
-        component: () => import('components/AdminProductCreate.vue'),
-      },
-      // admin orders
-      {
-        path: 'orders',
-        component: () => import('components/AdminOrders.vue'),
-      },
-      // admin payment methods
-      {
-        path: 'payment',
-        component: () => import('components/AdminPaymentMethods.vue'),
-      },
-    ],
-    beforeEnter: requiredAdmin,
-  },
   // Always leave this as last one,
   // but you can also remove it
   {
@@ -100,4 +54,6 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
-export default routes;
+const merge: RouteRecordRaw[] = routes.concat(admin);
+
+export default merge;

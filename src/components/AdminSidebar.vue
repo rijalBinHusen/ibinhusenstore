@@ -42,19 +42,19 @@ const menuLists = [
     icon: fasBox,
     label: 'Products',
     separator: true,
-    route: `/admin/${user?.value?.uid || 'adminTest'}/products`,
+    route: `/admin/products`,
   },
   {
     icon: fasCashRegister,
     label: 'Orders',
     separator: true,
-    route: `/admin/${user?.value?.uid || 'adminTest'}/orders`,
+    route: `/admin/orders`,
   },
   {
     icon: fasMoneyCheck,
     label: 'Metode pembayaran',
     separator: true,
-    route: `/admin/${user?.value?.uid || 'adminTest'}/payment`,
+    route: `/admin/payment`,
   },
 ];
 </script>
