@@ -1,48 +1,25 @@
 import { ProductTypes, ProductDescriptionTypes } from 'src/types/Product';
 import { ref } from 'vue';
-import addDocument from 'src/firebase/Documents/writeDocument';
+import { getDocumentsAndLimit } from 'src/firebase/Documents/getDocuments';
+import {
+  addDocument,
+  writeDocument,
+} from 'src/firebase/Documents/createDocument';
+import { DocumentSnapshot } from 'firebase/firestore';
 
 export const lists = ref<ProductTypes[]>([]);
 
-export const renewProduct = () => {
-  lists.value.push(
-    {
-      id: 'asd1293uasdads1',
-      name: 'Cookies kacang @250gr',
-      price: 25000,
-      images: ['cookies5', 'cookies7'],
-      category: ['str'],
-      weight: 1200,
-      testimonies: ['string'],
-    },
-    {
-      id: 'asd1293uasdads1',
-      name: 'Cookies letter @250gr',
-      price: 25000,
-      images: ['cookies5', 'cookies7'],
-      category: ['str'],
-      weight: 1200,
-      testimonies: ['string'],
-    },
-    {
-      id: 'asd1293uasdads1',
-      name: 'Butter cookies @250gr',
-      price: 25000,
-      images: ['cookies5', 'cookies7'],
-      category: ['str'],
-      weight: 1200,
-      testimonies: ['string'],
-    },
-    {
-      id: 'asd1293uasdads1',
-      name: 'Banana cookies @250gr',
-      price: 25000,
-      images: ['cookies5', 'cookies7'],
-      category: ['str'],
-      weight: 1200,
-      testimonies: ['string'],
-    }
-  );
+export const renewProduct = async () => {
+  const res = await getDocumentsAndLimit('products', 10);
+  if (res) {
+    res.forEach((doc: DocumentSnapshot) => {
+      const dokumen = doc.data() as ProductTypes;
+      lists.value.push({
+        ...dokumen,
+        id: doc.id,
+      });
+    });
+  }
 };
 
 export const newProductState = ref(<ProductTypes>{
@@ -58,9 +35,6 @@ export const createNewProduct = async (
   description: string
 ) => {
   const product = await addDocument('products', productProperty);
-  const descriptionProduct = <ProductDescriptionTypes>{
-    idProduct: product.id,
-    description,
-  };
-  await addDocument('description', descriptionProduct);
+  const descriptionProduct = <ProductDescriptionTypes>{ description };
+  await writeDocument('description', product.id, descriptionProduct);
 };

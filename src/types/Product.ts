@@ -9,8 +9,7 @@ export interface ProductTypes {
 }
 
 export interface ProductDescriptionTypes {
-  id: string;
-  idProduct: string;
+  id: string; // this as same as id Product
   description: string;
 }
 
