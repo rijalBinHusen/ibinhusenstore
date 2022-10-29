@@ -133,7 +133,7 @@ const handleSubmit = async () => {
   } else {
     let result = await signin({ email: email.value, password: password.value });
     if (result) {
-      await router.push('/admin/' + result.user.uid + '/products');
+      await router.push('/admin/products');
     }
   }
   email.value = '';

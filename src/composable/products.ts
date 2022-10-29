@@ -34,18 +34,45 @@ export const newProductState = ref(<ProductTypes>{
   images: [] as string[],
 });
 
-export const createNewProduct = async (
-  productProperty: ProductTypes,
-  description: string
-) => {
-  const product = await addDocument('products', productProperty);
-  const descriptionProduct = <ProductDescriptionTypes>{ description };
-  await writeDocument('description', product.id, descriptionProduct);
+export const newProductDescription = ref(<ProductDescriptionTypes>{
+  description: 'Tulis deskripsi produk disini',
+});
+
+export const createNewProduct = async () => {
+  const product = await addDocument('products', newProductState.value);
+  await writeDocument('description', product.id, newProductDescription.value);
+  return;
 };
 
 export const getProductById = async (idProduct: string) => {
   const res = await getDocumentById('products', idProduct);
   if (res) {
     newProductState.value = res as ProductTypes;
+    newProductDescription.value = (await getDocumentById(
+      'description',
+      idProduct
+    )) as ProductDescriptionTypes;
   }
+};
+
+export const updateProduct = async (
+  isProductUpdated: boolean,
+  isDescriptionUpdated: boolean
+) => {
+  console.log(isProductUpdated, isDescriptionUpdated);
+  if (isProductUpdated) {
+    await writeDocument(
+      'products',
+      newProductState.value.id,
+      newProductState.value
+    );
+  }
+  if (isDescriptionUpdated) {
+    await writeDocument(
+      'description',
+      newProductState.value.id,
+      newProductDescription.value
+    );
+  }
+  return;
 };

@@ -40,7 +40,8 @@
     <!-- Description -->
     <div class="q-my-md">
       <label for="">Deskripsi produk:</label>
-      <q-editor v-model="description" min-height="5rem"> </q-editor>
+      <q-editor v-model="newProductDescription.description" min-height="5rem">
+      </q-editor>
     </div>
     <!-- Image uploader -->
     <div class="row q-gutter-sm">
@@ -60,7 +61,11 @@
 
     <!-- Button submit -->
     <div class="row q-mt-md">
-      <q-btn @click="handleSubmit" color="primary" label="Buat produk"></q-btn>
+      <q-btn
+        @click="handleSubmit"
+        color="primary"
+        :label="isEditMode ? 'Update produk' : 'Buat produk'"
+      ></q-btn>
     </div>
     <!-- Button sumbit -->
   </q-page>
@@ -68,12 +73,14 @@
 
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import {
   newProductState,
+  newProductDescription,
   createNewProduct,
   getProductById,
+  updateProduct,
 } from '../composable/products';
 import ImageUploaderVue from './ImageUploader.vue';
 
@@ -106,13 +113,20 @@ const handleImage = (downloadURL: string) => {
     );
   }
 };
-// description reference
-const description = ref<string>('Tulis deskripsi produk');
 
 const handleSubmit = async () => {
-  await createNewProduct(newProductState.value, description.value);
+  if (isEditMode.value) {
+    await updateProduct(
+      isNewProductChanged.value,
+      isNewProductDescriptionChanged.value
+    );
+  } else {
+    await createNewProduct();
+  }
   $q.notify({
-    message: 'Produk baru berhasil dimasukkan',
+    message: `Produk baru berhasil ${
+      isEditMode.value ? 'di update!' : 'dimasukkan'
+    }`,
     color: 'primary',
     timeout: 500,
   });
@@ -123,8 +137,35 @@ onMounted(async () => {
   if (isEditMode.value) {
     await getProductById(route.params.idProduct as string);
   }
-  console.log(newProductState.value);
 });
+
+const isNewProductChanged = ref(false);
+const isNewProductDescriptionChanged = ref(false);
+
+watch(
+  [newProductState, newProductDescription],
+  (newVal, oldVal) => {
+    if (isEditMode.value) {
+      // description
+      if (newVal[1].description !== oldVal[1].description) {
+        isNewProductDescriptionChanged.value = true;
+        console.log('desc berubah');
+      }
+      // product
+      if (
+        newVal[0].name !== oldVal[0].name ||
+        newVal[0].category.toString() !== oldVal[0].category.toString() ||
+        newVal[0].price !== oldVal[0].price ||
+        newVal[0].weight !== oldVal[0].weight ||
+        newVal[0].images.toString() !== oldVal[0].images.toString()
+      ) {
+        isNewProductChanged.value = true;
+        console.log('product berubah');
+      }
+    }
+  },
+  { deep: true }
+);
 
 const isEditMode = computed(() => {
   return Boolean(route.params.idProduct);

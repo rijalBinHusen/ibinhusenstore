@@ -27,7 +27,6 @@
 
 <script lang="ts" setup>
 import { leftDrawerOpen } from 'src/composable/admin';
-import { user } from 'src/composable/userSignin';
 import {
   fasBox,
   fasCashRegister,
@@ -42,19 +41,19 @@ const menuLists = [
     icon: fasBox,
     label: 'Products',
     separator: true,
-    route: `/admin/products`,
+    route: '/admin/products',
   },
   {
     icon: fasCashRegister,
     label: 'Orders',
     separator: true,
-    route: `/admin/orders`,
+    route: '/admin/orders',
   },
   {
     icon: fasMoneyCheck,
     label: 'Metode pembayaran',
     separator: true,
-    route: `/admin/payment`,
+    route: '/admin/payment',
   },
 ];
 </script>

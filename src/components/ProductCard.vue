@@ -7,7 +7,7 @@
       <q-card-section>
         <div class="text-weight-medium text-caption">{{ product.name }}</div>
         <div class="text-subtitle2 text-weight-regular">
-          RP{{ product.price }}
+          {{ formatPrice(product.price) }}
         </div>
       </q-card-section>
     </q-card>
@@ -20,6 +20,7 @@ import { ProductTypes } from '../types/Product';
 import { PropType, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { isArray } from '@vue/shared';
+import formatPrice from 'src/composable/function/formatPrice';
 
 const router = useRouter();
 const route = useRoute();
