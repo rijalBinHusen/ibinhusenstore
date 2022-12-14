@@ -101,7 +101,7 @@
 
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import {
   newProductState,
@@ -109,6 +109,7 @@ import {
   createNewProduct,
   getProductById,
   updateProduct,
+  emptyProductState,
 } from '../composable/products';
 import ImageUploaderVue from './ImageUploader.vue';
 
@@ -179,7 +180,12 @@ const handleSubmit = async () => {
   await router.push('/');
 };
 
+onBeforeUnmount(() => {
+  emptyProductState();
+});
+
 onMounted(async () => {
+  console.log(!isEditMode.value);
   if (isEditMode.value) {
     await getProductById(route.params.idProduct as string);
   }

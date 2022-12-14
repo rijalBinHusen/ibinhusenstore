@@ -26,7 +26,20 @@ export const renewProduct = async () => {
   }
 };
 
-export const newProductState = ref(<ProductTypes>{
+export const emptyProductState = () => {
+  newProductState = ref(<ProductTypes>{
+    name: '',
+    category: [] as string[],
+    price: 0,
+    weight: 0,
+    images: [] as string[],
+  });
+  newProductDescription = ref(<ProductDescriptionTypes>{
+    description: 'Tulis deskripsi produk disini',
+  });
+};
+
+export let newProductState = ref(<ProductTypes>{
   name: '',
   category: [] as string[],
   price: 0,
@@ -34,7 +47,7 @@ export const newProductState = ref(<ProductTypes>{
   images: [] as string[],
 });
 
-export const newProductDescription = ref(<ProductDescriptionTypes>{
+export let newProductDescription = ref(<ProductDescriptionTypes>{
   description: 'Tulis deskripsi produk disini',
 });
 
