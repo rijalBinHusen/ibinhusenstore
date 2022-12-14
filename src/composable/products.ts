@@ -59,7 +59,6 @@ export const updateProduct = async (
   isProductUpdated: boolean,
   isDescriptionUpdated: boolean
 ) => {
-  console.log(isProductUpdated, isDescriptionUpdated);
   if (isProductUpdated) {
     await writeDocument(
       'products',

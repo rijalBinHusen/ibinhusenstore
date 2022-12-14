@@ -3,25 +3,46 @@
     <h4>Buat produk baru</h4>
     <!-- Form input -->
     <div class="row q-gutter-sm">
+      <!-- Name product -->
       <q-input
         outlined
         v-model="newProductState.name"
         label="Nama produk"
+        @update:model-value="valueChanged('product')"
       ></q-input>
-      <q-input outlined v-model="newProductState.price" label="Harga"></q-input>
+      <!-- End of name product -->
+
+      <!-- Price -->
+      <q-input
+        outlined
+        @update:model-value="valueChanged('product')"
+        v-model="newProductState.price"
+        label="Harga"
+      >
+      </q-input>
+      <!-- End of price -->
+
+      <!-- Weight -->
       <q-input
         outlined
         v-model="newProductState.weight"
+        @update:model-value="valueChanged('product')"
         label="berat"
       ></q-input>
+      <!-- End of weight product -->
+
+      <!-- Category product -->
       <q-input
         outlined
         v-model="category"
         label="Tambah kategori"
         @keydown.enter="handleCategory"
       ></q-input>
+      <!-- End of category product -->
     </div>
-    <!-- Form input -->
+
+    <!-- End of Form input -->
+
     <!-- Kategory lists -->
     <div class="q-my-md">
       Kategori produk:
@@ -37,12 +58,19 @@
       />
     </div>
     <!-- Kategory lists -->
-    <!-- Description -->
+
+    <!-- Description product -->
     <div class="q-my-md">
       <label for="">Deskripsi produk:</label>
-      <q-editor v-model="newProductDescription.description" min-height="5rem">
+      <q-editor
+        v-model="newProductDescription.description"
+        min-height="5rem"
+        @update:model-value="valueChanged('description')"
+      >
       </q-editor>
     </div>
+    <!-- End of description product -->
+
     <!-- Image uploader -->
     <div class="row q-gutter-sm">
       <image-uploader-vue
@@ -57,7 +85,7 @@
         @removed-image="handleImage"
       />
     </div>
-    <!-- Image uploader -->
+    <!-- End of Image uploader -->
 
     <!-- Button submit -->
     <div class="row q-mt-md">
@@ -73,7 +101,7 @@
 
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import {
   newProductState,
@@ -88,6 +116,17 @@ const $q = useQuasar();
 const router = useRouter();
 const route = useRoute();
 
+// use this function to update either product or description changed
+// so we're just update data that we're only want to update
+const valueChanged = (param: string) => {
+  if (param == 'product') {
+    isNewProductChanged.value = true;
+  }
+  if (param == 'description') {
+    isNewProductDescriptionChanged.value = true;
+  }
+};
+
 // category model form
 const category = ref<string>('');
 // function to add category in product
@@ -95,13 +134,18 @@ const handleCategory = (e: string) => {
   const isExists = newProductState.value.category.includes(category.value);
   if (!isExists && category.value) {
     newProductState.value.category.push(category.value);
+    // set the product changed true
+    isNewProductChanged.value = true;
   } else {
     newProductState.value.category = newProductState.value.category.filter(
       (cat) => cat !== e
     );
+    // set the product changed true
+    isNewProductChanged.value = true;
   }
   category.value = '';
 };
+
 // add image
 const handleImage = (downloadURL: string) => {
   if (downloadURL) {
@@ -112,6 +156,8 @@ const handleImage = (downloadURL: string) => {
       (img) => img !== downloadURL
     );
   }
+  // set the product changed true
+  isNewProductChanged.value = true;
 };
 
 const handleSubmit = async () => {
@@ -141,31 +187,6 @@ onMounted(async () => {
 
 const isNewProductChanged = ref(false);
 const isNewProductDescriptionChanged = ref(false);
-
-watch(
-  [newProductState, newProductDescription],
-  (newVal, oldVal) => {
-    if (isEditMode.value) {
-      // description
-      if (newVal[1].description !== oldVal[1].description) {
-        isNewProductDescriptionChanged.value = true;
-        console.log('desc berubah');
-      }
-      // product
-      if (
-        newVal[0].name !== oldVal[0].name ||
-        newVal[0].category.toString() !== oldVal[0].category.toString() ||
-        newVal[0].price !== oldVal[0].price ||
-        newVal[0].weight !== oldVal[0].weight ||
-        newVal[0].images.toString() !== oldVal[0].images.toString()
-      ) {
-        isNewProductChanged.value = true;
-        console.log('product berubah');
-      }
-    }
-  },
-  { deep: true }
-);
 
 const isEditMode = computed(() => {
   return Boolean(route.params.idProduct);

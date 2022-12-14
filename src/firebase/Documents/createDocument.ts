@@ -14,6 +14,5 @@ export const writeDocument = (
 ) => {
   const { id, ...newObj } = data;
   id;
-  console.log(newObj);
   return setDoc(doc(firebaseStore, nameStore, keyStore), newObj);
 };
