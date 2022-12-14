@@ -5,7 +5,7 @@
       <q-input
         outlined
         type="text"
-        v-model="paymentMethodsState.name"
+        v-model="paymentMethodForm.name"
         label="Nama metode"
       ></q-input>
 
@@ -13,21 +13,21 @@
         outlined
         type="text"
         class="col-7"
-        v-model="paymentMethodsState.description"
+        v-model="paymentMethodForm.description"
         label="Deskripsi"
       ></q-input>
 
       <q-btn
         color="primary"
-        @click="createNewPaymentMethods"
-        label="Kirim"
+        @click="handleSubmit"
+        :label="paymentMethodForm.id ? 'Update' : 'Kirim'"
       ></q-btn>
     </div>
     <!-- Button -->
     <q-table
-      v-if="rowsArray?.length"
+      v-if="paymentMethodsState?.length"
       title="Metode pembayaran"
-      :rows="rowsArray"
+      :rows="paymentMethodsState"
       :columns="headsArray"
       row-key="name"
     >
@@ -43,7 +43,7 @@
           </q-td>
           <!-- Button action, either edit, or delete -->
           <q-td key="action" :props="props">
-            <q-btn color="primary" label="Edit"></q-btn>
+            <q-btn color="primary" @click="editPaymentMethod(props.row.id)" label="Edit"></q-btn>
             <q-btn color="purple" label="Hapus"></q-btn>
             <!-- {{ props.row.action }} -->
           </q-td>
@@ -60,7 +60,7 @@ import { MetodePembayaranTypes } from 'src/types/MetodePembayaran';
 // import firebase function to get document
 import { getDocuments } from 'src/firebase/Documents/getDocuments';
 import { DocumentSnapshot } from '@firebase/firestore';
-import { addDocument } from 'src/firebase/Documents/createDocument';
+import { addDocument, writeDocument } from 'src/firebase/Documents/createDocument';
 
 // columns data for qtable
 const headsArray: QTableProps['columns'] = [
@@ -81,8 +81,8 @@ const headsArray: QTableProps['columns'] = [
   { label: 'Action', name: 'action', field: 'action', sortable: false },
 ];
 
-// variabel would content data for qtable
-const rowsArray = ref<MetodePembayaranTypes[]>([]);
+// variabel would contain data for qtable
+const paymentMethodsState = ref(<MetodePembayaranTypes[]>[]);
 
 // function get all document from db
 const getPaymentMethods = async () => {
@@ -94,7 +94,7 @@ const getPaymentMethods = async () => {
       // extract data
       const docs = doc.data() as MetodePembayaranTypes;
       // push to rows array
-      rowsArray.value.push({
+      paymentMethodsState.value.push({
         ...docs,
         id: doc.id,
       });
@@ -107,22 +107,52 @@ onMounted(async () => {
 });
 
 // function to post a new payment method
-const createNewPaymentMethods = async () => {
+const handleSubmit = async () => {
+  const { name, description } = paymentMethodForm.value
   // if the form not empty send to firebase
-  if (paymentMethodsState.value.name && paymentMethodsState.value.description) {
-    const res = await addDocument('paymentMethods', paymentMethodsState.value);
-    rowsArray.value.push({
-      ...paymentMethodsState.value,
-      id: res.id,
-    });
+  if ( name && description ) {
+    // if update record
+    if(paymentMethodForm.value.id) {
+      // send to firebase
+      await writeDocument('paymentMethods', paymentMethodForm.value.id, { name, description } as MetodePembayaranTypes)
+      // mapping the state
+      paymentMethodsState.value = paymentMethodsState.value.map((rec) => {
+        // if the id record same, replace it
+        if(rec.id === paymentMethodForm.value.id) {
+          return { id: paymentMethodForm.value.id, name, description }
+        }
+          return rec
+      })
+    }
+    else {
+      // if create new record
+      // post to firebase and wait the process
+      const res = await addDocument('paymentMethods', { name, description } as MetodePembayaranTypes);
+      // push new data to state
+      paymentMethodsState.value.push({
+        name,
+        description,
+        id: res.id,
+      });
+    }
   }
-  paymentMethodsState.value.name = '';
-  paymentMethodsState.value.description = '';
+
+  paymentMethodForm.value.name = '';
+  paymentMethodForm.value.description = '';
   return;
 };
 
 // function to edit payment methods
-let paymentMethodsState = ref(<MetodePembayaranTypes>{
+const editPaymentMethod = (id: string) => {
+  // find the record from state
+  let rec = paymentMethodsState.value.find((rec) => rec.id === id)
+  if(rec) {
+    // fill the payment method form
+    paymentMethodForm.value = { ...rec };
+  }
+}
+
+let paymentMethodForm = ref(<MetodePembayaranTypes>{
   name: '',
   description: '',
 });
