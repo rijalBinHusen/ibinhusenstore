@@ -44,7 +44,7 @@
           <!-- Button action, either edit, or delete -->
           <q-td key="action" :props="props">
             <q-btn color="primary" @click="editPaymentMethod(props.row.id)" label="Edit"></q-btn>
-            <q-btn color="purple" label="Hapus"></q-btn>
+            <q-btn color="purple" @click="removePaymentMethod(props.row.id)" label="Hapus"></q-btn>
             <!-- {{ props.row.action }} -->
           </q-td>
         </q-tr>
@@ -55,12 +55,15 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-import { QTableProps } from 'quasar';
+import { QTableProps, useQuasar } from 'quasar';
 import { MetodePembayaranTypes } from 'src/types/MetodePembayaran';
 // import firebase function to get document
 import { getDocuments } from 'src/firebase/Documents/getDocuments';
 import { DocumentSnapshot } from '@firebase/firestore';
-import { addDocument, writeDocument } from 'src/firebase/Documents/createDocument';
+import { addDocument, writeDocument, removeDocument } from 'src/firebase/Documents/createDocument';
+
+const nameDocument = <string>'paymentMethods';
+const $q = useQuasar()
 
 // columns data for qtable
 const headsArray: QTableProps['columns'] = [
@@ -87,7 +90,7 @@ const paymentMethodsState = ref(<MetodePembayaranTypes[]>[]);
 // function get all document from db
 const getPaymentMethods = async () => {
   // waiting to geet documents
-  const res = await getDocuments('paymentMethods');
+  const res = await getDocuments(nameDocument);
   if (res) {
     // iterate the response
     res.forEach((doc: DocumentSnapshot) => {
@@ -106,7 +109,7 @@ onMounted(async () => {
   await getPaymentMethods();
 });
 
-// function to post a new payment method
+// function to post a new payment method or update record
 const handleSubmit = async () => {
   const { name, description } = paymentMethodForm.value
   // if the form not empty send to firebase
@@ -114,7 +117,7 @@ const handleSubmit = async () => {
     // if update record
     if(paymentMethodForm.value.id) {
       // send to firebase
-      await writeDocument('paymentMethods', paymentMethodForm.value.id, { name, description } as MetodePembayaranTypes)
+      await writeDocument(nameDocument, paymentMethodForm.value.id, { name, description } as MetodePembayaranTypes)
       // mapping the state
       paymentMethodsState.value = paymentMethodsState.value.map((rec) => {
         // if the id record same, replace it
@@ -127,7 +130,7 @@ const handleSubmit = async () => {
     else {
       // if create new record
       // post to firebase and wait the process
-      const res = await addDocument('paymentMethods', { name, description } as MetodePembayaranTypes);
+      const res = await addDocument(nameDocument, { name, description } as MetodePembayaranTypes);
       // push new data to state
       paymentMethodsState.value.push({
         name,
@@ -150,6 +153,23 @@ const editPaymentMethod = (id: string) => {
     // fill the payment method form
     paymentMethodForm.value = { ...rec };
   }
+}
+
+// function to remove payment method
+const removePaymentMethod = async (id: string) => {
+  // launch confirm dialog
+  $q.dialog({
+        title: 'Apakah anda yakin?',
+        message: 'Record akan dihapus',
+        cancel: true,
+        persistent: true
+      }).onCancel(() => {
+        // console.log('>>>> Cancel')
+        return
+      })
+      
+    await removeDocument(nameDocument, id)
+    paymentMethodsState.value = paymentMethodsState.value.filter((rec) => rec.id !== id)
 }
 
 let paymentMethodForm = ref(<MetodePembayaranTypes>{

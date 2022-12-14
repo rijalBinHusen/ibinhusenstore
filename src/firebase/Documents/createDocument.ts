@@ -1,5 +1,5 @@
 import { firebaseStore } from '../firebaseApp';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { ProductDescriptionTypes, ProductTypes } from 'src/types/Product';
 type dataTypes = ProductDescriptionTypes | ProductTypes;
 
@@ -15,4 +15,11 @@ export const writeDocument = (
   const { id, ...newObj } = data;
   id;
   return setDoc(doc(firebaseStore, nameStore, keyStore), newObj);
+};
+
+export const removeDocument = (
+  nameStore: string,
+  keyStoreOrIdDocument: string
+) => {
+  return deleteDoc(doc(firebaseStore, nameStore, keyStoreOrIdDocument));
 };
